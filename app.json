@@ -1,0 +1,50 @@
+{
+  "expo": {
+    "name": "DPM Delivery",
+    "slug": "dpm-delivery",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.jpeg",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/images/splash.jpeg",
+      "resizeMode": "contain",
+      "backgroundColor": "#f15a24"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/icon.jpeg"
+    },
+    "plugins": [
+      "expo-router",
+      [
+      "expo-build-properties",
+      {
+        "ios": {
+          "deploymentTarget": "13.0"
+        }
+      }
+    ],
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
