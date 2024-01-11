@@ -36,7 +36,6 @@ export default function ForgotPasswordStepTwo({changeStep}: Props) {
   const router = useRouter();
 
   const changePassword = (data: ChangePasswordDto) => {
-    console.log(data);
     resetPasswordMutation.mutate(data, {
       onSuccess() {
         router.replace('/(auth)/auth/login');

@@ -34,11 +34,11 @@ export const signupValidationSchema = z
     }),
     // .regex(regexPattern.Phone, ''Invalid phone number''),
 
-    newPassword: passwordValidation,
+    password: passwordValidation,
     confirmPassword: passwordValidation,
     fullName: z.string({required_error: 'Name is required'}),
   })
-  .refine(({newPassword, confirmPassword}) => newPassword === confirmPassword, {
+  .refine(({password, confirmPassword}) => password === confirmPassword, {
     message: 'Passwords are not the same',
     path: ['confirmPassword'],
   });
@@ -47,11 +47,11 @@ export type SignupDto = z.infer<typeof signupValidationSchema>;
 
 export const changePasswordValidation = z
   .object({
-    password: passwordValidation,
+    newPassword: passwordValidation,
     confirmPassword: passwordValidation,
     code: z.string({required_error: 'Provide the confirmation code'}).min(4),
   })
-  .refine(({password, confirmPassword}) => password === confirmPassword, {
+  .refine(({newPassword, confirmPassword}) => newPassword === confirmPassword, {
     message: 'Passwords are not the same',
     path: ['confirmPassword'],
   });

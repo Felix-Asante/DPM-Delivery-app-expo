@@ -25,7 +25,7 @@ export default function OtpScreen() {
   const verifyOtp = (data: {otp: string}) => {
     verifyOtpMutation.mutate(data.otp, {
       onSuccess() {
-        router.replace('/(app)/(home)/home/');
+        router.replace('/(main)/Home/home');
       },
       onError(error) {
         toastErrorMessage(getErrorMessage(error));

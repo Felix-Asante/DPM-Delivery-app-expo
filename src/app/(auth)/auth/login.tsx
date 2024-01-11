@@ -37,7 +37,7 @@ export default function LoginScreen() {
     loginMutation.mutate(data, {
       onSuccess(data) {
         saveToSecureStore(TOKEN_KEY, data?.accessToken);
-        router.replace('/(app)/(home)/home');
+        router.replace('/(main)/Home/home');
       },
       onError(error) {
         toastErrorMessage(getErrorMessage(error));
