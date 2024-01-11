@@ -34,7 +34,7 @@ export default function Onboarding() {
           onPress={async () => {
             // store skip
             await saveToSecureStore(SKIP_ONBOARDING_KEY, true);
-            router.replace('/(app)/(home)/home');
+            router.replace('/(app)/(home)/home/');
           }}
           className="items-end mb-2 pr-3">
           <Text className="text-dark">Skip</Text>

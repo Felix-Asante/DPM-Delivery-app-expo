@@ -1,7 +1,8 @@
 import {makeApiRequest} from './apiHandler';
 import {User} from '../types/auth';
 import {apiConfig} from '../utils/apiConfig';
-import {LoginDto, SignupDto} from '../validations/auth';
+import {IPhone} from '../validations';
+import {ChangePasswordDto, LoginDto, SignupDto} from '../validations/auth';
 
 interface LoginResponse {
   user: User;
@@ -32,4 +33,21 @@ export async function verifyAccount(code: string) {
     method: 'get',
   });
   return result;
+}
+export async function getResetPasswordCode(data: IPhone) {
+  const endpoint = apiConfig.auth.forgot_password();
+  const result = await makeApiRequest({
+    endpoint,
+    method: 'post',
+    data,
+  });
+  return result;
+}
+export async function resetPassword(data: ChangePasswordDto) {
+  const endpoint = apiConfig.auth.reset_password(data.code);
+  await makeApiRequest({
+    endpoint,
+    method: 'post',
+    data,
+  });
 }

@@ -7,7 +7,7 @@ export const apiConfig = {
     login: () => `/auth/login`,
     register: () => `/auth/signup`,
     forgot_password: () => `/auth/forgotPassword`,
-    reset_password: () => `/auth/resetPassword`,
+    reset_password: (code: string) => `/auth/resetPassword/${code}`,
     change_password: () => `/auth/change-password`,
     verify_otp: (code: string) => `/auth/verify-account/${code}`,
   },
