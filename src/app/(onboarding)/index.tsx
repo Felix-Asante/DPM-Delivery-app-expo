@@ -60,7 +60,7 @@ export default function Onboarding() {
       <View className="mt-10 px-4 h-full">
         <TouchableOpacity
           onPress={() => {
-            router.push('/(auth)/auth/login');
+            router.replace('/(auth)/auth/login');
           }}
           className="bg-white rounded-md py-2 px-3 w-[90%] ml-4 mb-2">
           <Text className="text-primary text-center font-bold text-lg">
@@ -70,6 +70,7 @@ export default function Onboarding() {
 
         <Link
           href="/(auth)/auth/register"
+          replace
           className="text-white text-center font-medium">
           Visiting for the first time? Sign Up
         </Link>

@@ -25,3 +25,11 @@ export async function signUp(data: SignupDto) {
   });
   return result;
 }
+export async function verifyAccount(code: string) {
+  const endpoint = apiConfig.auth.verify_otp(code);
+  const result = await makeApiRequest({
+    endpoint,
+    method: 'get',
+  });
+  return result;
+}

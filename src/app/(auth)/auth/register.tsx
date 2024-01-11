@@ -36,7 +36,10 @@ export default function RegisterScreen() {
   const register = (data: SignupDto) => {
     createUserMutation.mutate(data, {
       onSuccess() {
-        router.replace('/(auth)/auth/otp');
+        router.replace({
+          pathname: '/(auth)/auth/otp',
+          params: {phone: data.phone},
+        });
       },
       onError(error) {
         toastErrorMessage(getErrorMessage(error));

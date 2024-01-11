@@ -1,4 +1,4 @@
-import React, {ReactNode, useState} from 'react';
+import React, {ReactNode, forwardRef, useState} from 'react';
 import {useController} from 'react-hook-form';
 import {Text, TextInput, TextInputProps, View} from 'react-native';
 
@@ -14,7 +14,7 @@ export interface InputProps extends TextInputProps {
   startContent?: ReactNode;
   endContent?: ReactNode;
 }
-export default function Input(props: InputProps) {
+const Input = forwardRef(function Input(props: InputProps, ref: any) {
   const {
     name,
     label,
@@ -43,7 +43,7 @@ export default function Input(props: InputProps) {
         <View className="absolute top-[30%] left-2">{startContent}</View>
         <TextInput
           className={mergeClassNames(
-            '"bg-transparent h-full ml-2 font-semibold  py-0"',
+            '"bg-transparent h-full ml-2 text-light font-semibold  py-0"',
             startContent && 'ml-7',
           )}
           defaultValue={defaultValue}
@@ -53,6 +53,7 @@ export default function Input(props: InputProps) {
           onChangeText={field.onChange}
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
+          ref={ref}
         />
         <View className="absolute top-[28%] right-2">{endContent}</View>
       </View>
@@ -63,4 +64,6 @@ export default function Input(props: InputProps) {
       )}
     </View>
   );
-}
+});
+
+export default Input;
