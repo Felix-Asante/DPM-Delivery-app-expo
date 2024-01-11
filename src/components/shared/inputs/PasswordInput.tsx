@@ -1,13 +1,13 @@
-import { EyeIcon, EyeOffIcon } from "lucide-react-native";
-import React, { useState } from "react";
+import {EyeIcon, EyeOffIcon} from 'lucide-react-native';
+import React, {useState} from 'react';
 
-import Input, { InputProps } from ".";
-import Colors from "../../../constants/Colors";
+import Input, {InputProps} from '.';
+import Colors from '../../../constants/Colors';
 
 export default function PasswordInput(props: InputProps) {
   const [isPassword, setIsPassword] = useState(true);
 
-  const togglePassword = () => setIsPassword((state) => !state);
+  const togglePassword = () => setIsPassword(state => !state);
   return (
     <Input
       {...props}

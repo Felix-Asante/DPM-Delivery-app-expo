@@ -20,6 +20,7 @@ import Colors from '../../../constants/Colors';
 import {useReactHookForm} from '../../../hooks/useReactHookForm';
 import {login} from '../../../lib/auth';
 import {getErrorMessage, saveToSecureStore} from '../../../utils/helpers';
+import {toastErrorMessage} from '../../../utils/toast';
 import {LoginDto, loginValidations} from '../../../validations/auth';
 export default function LoginScreen() {
   const {
@@ -39,7 +40,7 @@ export default function LoginScreen() {
         router.replace('/(app)/(home)/home');
       },
       onError(error) {
-        console.log(getErrorMessage(error));
+        toastErrorMessage(getErrorMessage(error));
       },
     });
   };
@@ -62,7 +63,7 @@ export default function LoginScreen() {
                 name="phone"
                 placeholder="024 **** ***"
                 control={control}
-                inputMode="numeric"
+                keyboardType="phone-pad"
                 className="mb-8"
               />
 

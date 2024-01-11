@@ -4,8 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
     "lint": "eslint ."
@@ -20,7 +20,6 @@
     "@tanstack/react-query": "^5.17.9",
     "add": "^2.0.6",
     "axios": "^1.6.5",
-    "burnt": "^0.12.2",
     "expo": "~49.0.15",
     "expo-build-properties": "~0.8.3",
     "expo-font": "~11.4.0",

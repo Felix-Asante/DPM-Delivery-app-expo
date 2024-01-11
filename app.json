@@ -19,13 +19,15 @@
       "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "com.anonymous.dpmdelivery"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.dpmdelivery"
     },
     "web": {
       "bundler": "metro",
@@ -35,13 +37,13 @@
     "plugins": [
       "expo-router",
       [
-      "expo-build-properties",
-      {
-        "ios": {
-          "deploymentTarget": "13.0"
+        "expo-build-properties",
+        {
+          "ios": {
+            "deploymentTarget": "13.0"
+          }
         }
-      }
-    ],
+      ]
     ],
     "experiments": {
       "typedRoutes": true

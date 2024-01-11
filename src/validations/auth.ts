@@ -26,15 +26,21 @@ export const loginValidations = z.object({
 
 export type LoginDto = z.infer<typeof loginValidations>;
 
-export const signupValidationSchema = z.object({
-  phone: z.string({
-    required_error: 'Phone number is required',
-    invalid_type_error: 'Invalid phone number',
-  }),
-  // .regex(regexPattern.Phone, ''Invalid phone number''),
+export const signupValidationSchema = z
+  .object({
+    phone: z.string({
+      required_error: 'Phone number is required',
+      invalid_type_error: 'Invalid phone number',
+    }),
+    // .regex(regexPattern.Phone, ''Invalid phone number''),
 
-  password: passwordValidation,
-  fullName: z.string({required_error: 'Name is required'}),
-});
+    password: passwordValidation,
+    confirmPassword: passwordValidation,
+    fullName: z.string({required_error: 'Name is required'}),
+  })
+  .refine(({password, confirmPassword}) => password === confirmPassword, {
+    message: 'Passwords are not the same',
+    path: ['confirmPassword'],
+  });
 
 export type SignupDto = z.infer<typeof signupValidationSchema>;
