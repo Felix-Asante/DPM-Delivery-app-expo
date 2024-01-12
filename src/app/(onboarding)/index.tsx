@@ -35,6 +35,8 @@ export default function Onboarding() {
     await saveToSecureStore(SKIP_ONBOARDING_KEY, 'true');
     router.replace('/(main)/Home/home');
   };
+
+  // go to home if onboarding is skipped / already visited
   useEffect(() => {
     (async () => {
       const skip = await getFromSecureStore(SKIP_ONBOARDING_KEY);
@@ -44,6 +46,7 @@ export default function Onboarding() {
       SplashScreen.hideAsync();
     })();
   }, []);
+
   return (
     <View className="h-full bg-primary">
       <View className="bg-white px-2 pt-20 h-[80%] rounded-b-3xl">
@@ -72,7 +75,8 @@ export default function Onboarding() {
       </View>
       <View className="mt-10 px-4 h-full">
         <TouchableOpacity
-          onPress={() => {
+          onPress={async () => {
+            await saveToSecureStore(SKIP_ONBOARDING_KEY, 'true');
             router.replace('/(auth)/auth/login');
           }}
           className="bg-white rounded-md py-2 px-3 w-[90%] ml-4 mb-2">
@@ -80,13 +84,15 @@ export default function Onboarding() {
             Sign In
           </Text>
         </TouchableOpacity>
-
-        <Link
-          href="/(auth)/auth/register"
-          replace
-          className="text-white text-center font-medium">
-          Visiting for the first time? Sign Up
-        </Link>
+        <TouchableOpacity
+          onPress={async () => {
+            await saveToSecureStore(SKIP_ONBOARDING_KEY, 'true');
+            router.replace('/(auth)/auth/register');
+          }}>
+          <Text className="text-white text-center font-medium">
+            Visiting for the first time? Sign Up
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
