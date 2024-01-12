@@ -16,6 +16,7 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@hookform/resolvers": "^3.3.4",
+    "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/native": "^6.0.2",
     "@tanstack/react-query": "^5.17.9",
     "add": "^2.0.6",
