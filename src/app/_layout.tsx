@@ -7,6 +7,7 @@ import {useEffect, useState} from 'react';
 import Providers from '../components/Providers';
 import ErrorMessage from '../components/shared/errors/ErrorMessage';
 import Colors from '../constants/Colors';
+import {useGlobalStore} from '../store/global';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -29,11 +30,20 @@ export default function RootLayout() {
   const [isConnectedToInternet, setIsConnectedToInternet] = useState<
     boolean | null
   >(null);
+
+  const {initGlobalStore} = useGlobalStore();
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     console.log('error', error);
     if (error) throw error;
   }, [error]);
+
+  // initial global store
+  useEffect(() => {
+    (async () => {
+      await initGlobalStore();
+    })();
+  }, []);
 
   useEffect(() => {
     if (loaded) {

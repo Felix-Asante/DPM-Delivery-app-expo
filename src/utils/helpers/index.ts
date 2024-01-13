@@ -47,3 +47,15 @@ export function getErrorMessage(error: any) {
 
   return data?.message || message;
 }
+
+export const calculateDiscount = (
+  originalPrice: number,
+  reductionPercent: number,
+) => {
+  if (originalPrice < 0 || reductionPercent < 0 || reductionPercent > 100) {
+    throw new Error('Invalid input values');
+  }
+
+  const discountAmount = (reductionPercent / 100) * originalPrice;
+  return originalPrice - discountAmount;
+};

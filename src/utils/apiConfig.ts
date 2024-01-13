@@ -27,4 +27,9 @@ export const apiConfig = {
     root: () => `bookings`,
     mine: (query?: Query) => `users/bookings${query ?? {}}`,
   },
+  offers: {
+    root: () => `/offers`,
+    place_offers: () => `/offers/place-offers`,
+    product_offers: () => `/offers/product-offers`,
+  },
 };
