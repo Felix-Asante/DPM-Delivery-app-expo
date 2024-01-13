@@ -55,13 +55,7 @@ export default function FeedsScreen() {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <HomeHeader />
-        <View className="px-3 pt-4">
-          <ContentWithSliderSection
-            content={categories}
-            sectionTitle="Top Categories"
-            renderData={({item}) => <CategoryCard category={item} />}
-            loading={false}
-          />
+        <View className="px-3 pt-1">
           <ContentWithSliderSection
             content={offers || []}
             sectionTitle="Special offers 🎉😍"
@@ -70,10 +64,18 @@ export default function FeedsScreen() {
                 reductionPercent={item?.reductionPercent}
                 price={item?.price}
                 place={item.place}
+                offer={item}
                 isOffer
               />
             )}
             loading={isLoading}
+            href="/(main)/Home/profile"
+          />
+          <ContentWithSliderSection
+            content={categories.slice(0, 8)}
+            sectionTitle="Top Categories"
+            renderData={({item}) => <CategoryCard category={item} />}
+            loading={false}
           />
           <ContentWithSliderSection
             content={newPlaces || []}
@@ -86,6 +88,7 @@ export default function FeedsScreen() {
               />
             )}
             loading={loadingNewPlaces}
+            href="/(main)/Home/profile"
           />
           <ContentWithSliderSection
             content={popularPlaces || []}
@@ -98,6 +101,7 @@ export default function FeedsScreen() {
               />
             )}
             loading={loadingPopularPlaces}
+            href="/(main)/Home/profile"
           />
         </View>
       </ScrollView>

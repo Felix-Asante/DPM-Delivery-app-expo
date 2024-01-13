@@ -6,6 +6,7 @@ import {View, Image, Text, TouchableOpacity, Pressable} from 'react-native';
 
 import Colors from '../../../constants/Colors';
 import {Place} from '../../../types/place';
+import {Special} from '../../../types/specials';
 import {calculateDiscount} from '../../../utils/helpers';
 import {
   calculateDistance,
@@ -21,6 +22,7 @@ interface Props {
   imageHeight?: string;
   reductionPercent?: number;
   price?: number;
+  offer?: Special;
 }
 export default function ContentCard({
   place,
@@ -29,6 +31,7 @@ export default function ContentCard({
   imageHeight = 'h-[115px]',
   reductionPercent = 0,
   price = 0,
+  offer,
 }: Props) {
   const [liked, setLiked] = useState(false);
   const router = useRouter();
@@ -46,7 +49,7 @@ export default function ContentCard({
 
   const goToPlaceScreen = () => {
     router.push({
-      pathname: '/(main)/Home/profile',
+      pathname: '/(main)/place/[id]',
       params: {id: place?.id},
     });
   };
@@ -92,7 +95,9 @@ export default function ContentCard({
       <TouchableOpacity className="flex flex-row items-center justify-between my-1">
         <TouchableOpacity onPress={goToPlaceScreen}>
           <Text className="font-medium text-base md:text-lg  text-dark  line-clamp-1 capitalize">
-            {place?.name.substring(0, TOTAL_CHARACTERS)}
+            {isOffer && offer
+              ? offer?.title?.substring(0, TOTAL_CHARACTERS)
+              : place?.name.substring(0, TOTAL_CHARACTERS)}
             {place?.name.length > TOTAL_CHARACTERS ? '...' : ''}
           </Text>
         </TouchableOpacity>

@@ -16,6 +16,8 @@ export const apiConfig = {
     me: () => `/users/me`,
   },
   places: {
+    root: () => `/places`,
+    get: (id: string) => `/places/${id}`,
     new: () => `/places/new`,
     popular: (query?: Query) =>
       `/places/popular/locations${toQuery(query ?? {})}`,

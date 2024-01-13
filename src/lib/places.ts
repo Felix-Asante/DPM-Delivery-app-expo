@@ -11,3 +11,7 @@ export function getPopularPlaces(query?: Query): Promise<Place[]> {
   const endpoint = apiConfig.places.popular(query);
   return makeApiRequest({endpoint, method: 'get'});
 }
+export function getPlace(id: string): Promise<Place> {
+  const endpoint = apiConfig.places.get(id);
+  return makeApiRequest({endpoint, method: 'get'});
+}

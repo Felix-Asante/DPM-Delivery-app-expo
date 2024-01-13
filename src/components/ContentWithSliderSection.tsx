@@ -62,7 +62,7 @@ export default function ContentWithSliderSection<T>(
         </Text>
         {href && (
           <Link href={href}>
-            <Text className="font-bold text-primary">See All</Text>
+            <Text className="font-medium text-primary">See All</Text>
           </Link>
         )}
       </View>
