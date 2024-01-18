@@ -40,3 +40,21 @@ export interface CartItem extends PlaceProducts {
   place: string;
   price: number;
 }
+
+export interface BookingDto {
+  place: string[];
+  services: {
+    product: string;
+    quantity: number;
+    price: number;
+    place: string;
+  }[];
+  rider_tip: number;
+  delivery_fee: number;
+  delivery_address: string;
+  recipient_phone: string;
+  transaction_id: string;
+  quantity?: number;
+  deliveryFee?: number;
+  amount?: number;
+}
