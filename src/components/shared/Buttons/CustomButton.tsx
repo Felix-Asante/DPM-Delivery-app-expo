@@ -1,6 +1,5 @@
-import LottieView from 'lottie-react-native';
-import React, {PropsWithChildren} from 'react';
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
+import React from 'react';
+import {ActivityIndicator, Text, TouchableOpacity} from 'react-native';
 
 import Colors from '../../../constants/Colors';
 import {mergeClassNames} from '../../../utils/helpers';

@@ -1,6 +1,6 @@
 import {ServerCrashIcon} from 'lucide-react-native';
 import React, {ReactNode} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Image} from 'react-native';
 
 import Colors from '../../../constants/Colors';
 import {mergeClassNames} from '../../../utils/helpers';
@@ -23,10 +23,9 @@ export default function ErrorMessage(props: ErrorMessageProps) {
       {illustration ? (
         illustration
       ) : (
-        <ServerCrashIcon
-          size={100}
-          color={Colors.light.main}
-          className="mb-3"
+        <Image
+          source={require('../../../../assets/images/not-found.png')}
+          className="w-[250px] h-[210px]"
         />
       )}
       <Text className="font-bold text-lg mb-1">{title}</Text>

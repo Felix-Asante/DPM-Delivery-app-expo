@@ -26,7 +26,7 @@ export default function AppHeader() {
           </TouchableOpacity>
         </View>
         <Link
-          href="/(main)/Home/orders"
+          href="/(main)/cart"
           className=" flex items-center justify-center border border-light-200">
           <View className="relative">
             <ShoppingBag color={Colors.dark.main} size={23} />

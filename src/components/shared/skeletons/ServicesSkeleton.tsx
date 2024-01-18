@@ -17,7 +17,7 @@ export default function ServicesSkeleton() {
           gap: 20,
           marginBottom: 10,
         }}>
-        <View style={{width: '70%', height: '20px'}}>
+        <View style={{width: '70%', height: 20}}>
           <View
             style={{
               width: '100%',
