@@ -50,7 +50,7 @@ export default function ContentCard({
   const goToPlaceScreen = () => {
     router.push({
       pathname: '/(main)/place/[id]',
-      params: {id: place?.id},
+      params: {id: place?.id, image: place?.mainImage},
     });
   };
 

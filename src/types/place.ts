@@ -44,3 +44,12 @@ export interface PlaceProducts {
   price: number;
   offers: Special[];
 }
+export interface PlaceMenu {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  name: string;
+  slug: string;
+  products: PlaceProducts[];
+}

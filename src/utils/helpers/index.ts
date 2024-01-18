@@ -1,6 +1,8 @@
 import * as SecureStore from 'expo-secure-store';
+import * as Sharing from 'expo-sharing';
 
 import {Query} from '../../types';
+import {toastErrorMessage} from '../toast';
 export function mergeClassNames(...classes: any) {
   return classes.filter(Boolean).join(' ');
 }
@@ -59,3 +61,13 @@ export const calculateDiscount = (
   const discountAmount = (reductionPercent / 100) * originalPrice;
   return originalPrice - discountAmount;
 };
+
+export async function share(url: string, options: Sharing.SharingOptions) {
+  try {
+    if (await Sharing.isAvailableAsync()) {
+      await Sharing.shareAsync(url, options);
+    }
+  } catch (error: any) {
+    toastErrorMessage(error?.message);
+  }
+}

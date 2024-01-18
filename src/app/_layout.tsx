@@ -8,6 +8,7 @@ import Providers from '../components/Providers';
 import ErrorMessage from '../components/shared/errors/ErrorMessage';
 import Colors from '../constants/Colors';
 import {useGlobalStore} from '../store/global';
+import {useAuthStore} from '../store/useAuth';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -32,6 +33,7 @@ export default function RootLayout() {
   >(null);
 
   const {initGlobalStore} = useGlobalStore();
+  const {fetchCurrentUser} = useAuthStore();
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     console.log('error', error);
@@ -42,6 +44,7 @@ export default function RootLayout() {
   useEffect(() => {
     (async () => {
       await initGlobalStore();
+      await fetchCurrentUser();
     })();
   }, []);
 

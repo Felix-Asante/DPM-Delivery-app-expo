@@ -51,3 +51,11 @@ export async function resetPassword(data: ChangePasswordDto) {
     data,
   });
 }
+export async function getCurrentUser(): Promise<User> {
+  const endpoint = apiConfig.user.me();
+  const currentUser = await makeApiRequest<User>({
+    endpoint,
+    method: 'get',
+  });
+  return currentUser;
+}

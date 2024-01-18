@@ -19,6 +19,7 @@ import {TOKEN_KEY} from '../../../constants';
 import Colors from '../../../constants/Colors';
 import {useReactHookForm} from '../../../hooks/useReactHookForm';
 import {login} from '../../../lib/auth';
+import {useAuthStore} from '../../../store/useAuth';
 import {getErrorMessage, saveToSecureStore} from '../../../utils/helpers';
 import {toastErrorMessage} from '../../../utils/toast';
 import {LoginDto, loginValidations} from '../../../validations/auth';
@@ -30,6 +31,7 @@ export default function LoginScreen() {
   } = useReactHookForm<LoginDto>({schema: loginValidations});
 
   const router = useRouter();
+  const {setUser} = useAuthStore();
 
   const loginMutation = useMutation({mutationFn: login});
 
@@ -37,6 +39,7 @@ export default function LoginScreen() {
     loginMutation.mutate(data, {
       onSuccess(data) {
         saveToSecureStore(TOKEN_KEY, data?.accessToken);
+        setUser(data?.user);
         router.replace('/(main)/Home/home');
       },
       onError(error) {

@@ -1,6 +1,8 @@
 import axios, {AxiosResponse, InternalAxiosRequestConfig} from 'axios';
 
+import {TOKEN_KEY} from '../constants';
 import {apiConfig} from '../utils/apiConfig';
+import {getFromSecureStore} from '../utils/helpers';
 
 const API_BASE_URL = apiConfig.baseUrl;
 
@@ -9,8 +11,8 @@ const axiosInstance = axios.create({
 });
 
 axiosInstance.interceptors.request.use(
-  (config: InternalAxiosRequestConfig) => {
-    const token = 'BEARER_TOKEN';
+  async (config: InternalAxiosRequestConfig) => {
+    const token = await getFromSecureStore(TOKEN_KEY);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }

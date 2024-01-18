@@ -1,8 +1,8 @@
 import {create} from 'zustand';
 
-import {Products} from '../types/products';
+import {PlaceProducts} from '../types/place';
 
-export interface Cart extends Products {
+export interface Cart extends PlaceProducts {
   quantity: number;
   deliveryFee?: number;
   place: string;
