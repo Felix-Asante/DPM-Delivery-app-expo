@@ -71,3 +71,9 @@ export async function share(url: string, options: Sharing.SharingOptions) {
     toastErrorMessage(error?.message);
   }
 }
+
+export function getInitials(text: string) {
+  if (!text) return '';
+  const [first, last] = text.split(' ');
+  return `${first.charAt(0).toUpperCase()} ${last.charAt(0).toUpperCase()}`;
+}
