@@ -13,12 +13,13 @@ const TabsContext = createContext<TabsContextProps>({
 interface TabsProps {
   defaultValue: string;
   children: ReactNode;
+  className?: string;
 }
-export function Tabs({defaultValue, children}: TabsProps) {
+export function Tabs({defaultValue, className, children}: TabsProps) {
   const [activeTab, setActiveTab] = useState(defaultValue);
 
   return (
-    <View>
+    <View className={className}>
       <TabsContext.Provider value={{activeTab, setActiveTab}}>
         {children}
       </TabsContext.Provider>
