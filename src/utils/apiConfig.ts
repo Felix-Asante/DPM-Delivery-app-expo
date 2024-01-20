@@ -30,7 +30,7 @@ export const apiConfig = {
   },
   bookings: {
     root: () => `bookings`,
-    mine: (query?: Query) => `users/bookings${query ?? {}}`,
+    mine: (query?: Query) => `users/bookings${toQuery(query ?? {})}`,
   },
   offers: {
     root: () => `/offers`,

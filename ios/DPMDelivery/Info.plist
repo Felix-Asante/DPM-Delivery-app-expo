@@ -27,7 +27,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>myapp</string>
+          <string>dpmdelivery</string>
           <string>com.anonymous.dpmdelivery</string>
         </array>
       </dict>
