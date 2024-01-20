@@ -5,6 +5,7 @@ import {
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import React, {ReactNode, useCallback, useEffect, useRef} from 'react';
+import {View} from 'react-native';
 
 interface BottomSheetProps {
   snapPoints: string[];

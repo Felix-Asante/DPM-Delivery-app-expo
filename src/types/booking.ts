@@ -2,6 +2,11 @@ import {Status} from '.';
 import {User} from './auth';
 import {Place, PlaceProducts, PlaceService} from './place';
 
+interface BookedServices {
+  id: string;
+  quantity: number;
+  product: PlaceProducts;
+}
 export interface Booking {
   id: string;
   createdAt: string;
@@ -19,7 +24,7 @@ export interface Booking {
   status: BookingStatus;
   user: User;
   place: Place[];
-  services: PlaceService[];
+  services: BookedServices[];
 }
 
 interface BookingStatus {
