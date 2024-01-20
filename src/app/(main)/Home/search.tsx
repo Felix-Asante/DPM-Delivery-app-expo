@@ -6,6 +6,7 @@ import {useForm} from 'react-hook-form';
 import {
   ActivityIndicator,
   FlatList,
+  RefreshControl,
   StatusBar,
   TouchableOpacity,
   View,
@@ -27,10 +28,18 @@ export default function SearchScreen() {
   const debounceValue = useDebounce(watch('search'), 2000);
   const {category} = useLocalSearchParams();
   const [showFilters, setShowFilters] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const {selectedCategories, selectedFilters} = useGlobalStore(state => state);
 
-  const queryKey = ['search', debounceValue, category];
+  const queryKey = ['search', debounceValue, category, refreshing];
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
   const {data, isLoading} = useQuery<Place[]>({
     queryKey,
@@ -41,6 +50,7 @@ export default function SearchScreen() {
       });
     },
     enabled: category?.length > 0 || debounceValue !== undefined,
+    placeholderData: previousData => previousData,
   });
 
   const filteredResult = useMemo(() => {
@@ -71,7 +81,7 @@ export default function SearchScreen() {
   }, [data, selectedCategories, selectedFilters]);
 
   return (
-    <View className="pt-20 px-3 min-h-full">
+    <View className="pt-20 px-3 min-h-full bg-white">
       <StatusBar barStyle="dark-content" />
       <View className="flex-row  space-x-5 mb-5">
         <View className="w-[85%]">
@@ -111,6 +121,13 @@ export default function SearchScreen() {
               />
             </View>
           )}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              tintColor={Colors.primary.main}
+            />
+          }
         />
       )}
       <BottomSheet
