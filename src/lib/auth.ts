@@ -2,7 +2,13 @@ import {makeApiRequest} from './apiHandler';
 import {User} from '../types/auth';
 import {apiConfig} from '../utils/apiConfig';
 import {IPhone} from '../validations';
-import {ChangePasswordDto, LoginDto, SignupDto} from '../validations/auth';
+import {
+  ChangePasswordDto,
+  LoginDto,
+  SignupDto,
+  UpdatePasswordDto,
+  UpdateProfileDto,
+} from '../validations/auth';
 
 interface LoginResponse {
   user: User;
@@ -58,4 +64,16 @@ export async function getCurrentUser(): Promise<User> {
     method: 'get',
   });
   return currentUser;
+}
+
+export async function updateProfileDetails(
+  data: UpdateProfileDto,
+): Promise<User> {
+  const endpoint = apiConfig.user.root();
+  return makeApiRequest({endpoint, method: 'put', data});
+}
+
+export async function changePassword(data: UpdatePasswordDto) {
+  const endpoint = apiConfig.auth.change_password();
+  return makeApiRequest({endpoint, method: 'put', data});
 }

@@ -1,10 +1,13 @@
+import {type ClassValue, clsx} from 'clsx';
 import * as SecureStore from 'expo-secure-store';
 import * as Sharing from 'expo-sharing';
+import {twMerge} from 'tailwind-merge';
 
 import {Query} from '../../types';
 import {toastErrorMessage} from '../toast';
-export function mergeClassNames(...classes: any) {
-  return classes.filter(Boolean).join(' ');
+
+export function mergeClassNames(...classes: ClassValue[]) {
+  return twMerge(clsx(classes));
 }
 
 export async function isSecureStoreAvailable() {

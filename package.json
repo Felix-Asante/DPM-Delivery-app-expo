@@ -22,6 +22,7 @@
     "@tanstack/react-query": "^5.17.9",
     "add": "^2.0.6",
     "axios": "^1.6.5",
+    "clsx": "^2.1.0",
     "expo": "~49.0.15",
     "expo-build-properties": "~0.8.3",
     "expo-font": "~11.4.0",
@@ -47,6 +48,7 @@
     "react-native-svg": "13.9.0",
     "react-native-swiper": "^1.6.0",
     "react-native-web": "~0.19.6",
+    "tailwind-merge": "^2.2.0",
     "zod": "^3.22.4",
     "zustand": "^4.4.7"
   },

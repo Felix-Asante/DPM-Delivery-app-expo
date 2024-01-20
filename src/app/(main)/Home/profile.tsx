@@ -29,7 +29,7 @@ const Menus = [
   },
   {
     label: 'Profile',
-    href: '(main)/profile/index',
+    href: '(main)/profile/',
     icon: User2,
     params: {},
   },
