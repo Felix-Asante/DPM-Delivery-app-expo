@@ -14,6 +14,7 @@ export const apiConfig = {
   user: {
     root: () => `/users`,
     me: () => `/users/me`,
+    likes: () => `/users/likes`,
   },
   places: {
     root: () => `/places`,
@@ -22,6 +23,7 @@ export const apiConfig = {
     place_service: (id: string) => `/places/${id}/products`,
     like: (id: string) => `/places/${id}/like`,
     dislike: (id: string) => `/places/${id}/dislike`,
+    with_offers: () => `/offers/place-offers`,
     popular: (query?: Query) =>
       `/places/popular/locations${toQuery(query ?? {})}`,
     search: (query?: Query) => `places/search${toQuery(query ?? {})}`,

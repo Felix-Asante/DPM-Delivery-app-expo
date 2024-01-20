@@ -31,3 +31,7 @@ export const searchPlaces = (query: Query): Promise<Place[]> => {
   const endpoint = apiConfig.places.search(query);
   return makeApiRequest({endpoint, method: 'get'});
 };
+export const getPlacesWithOffers = (): Promise<Place[]> => {
+  const endpoint = apiConfig.places.with_offers();
+  return makeApiRequest({endpoint, method: 'get'});
+};

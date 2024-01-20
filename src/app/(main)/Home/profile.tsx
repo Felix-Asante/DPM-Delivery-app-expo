@@ -78,11 +78,13 @@ export default function Profile() {
             <TouchableOpacity
               key={menu.label}
               onPress={() => {
-                // @ts-ignore
-                router.push({
-                  pathname: menu.href,
-                  params: menu.params,
-                });
+                menu.label === 'Profile' && !user
+                  ? null
+                  : // @ts-ignore
+                    router.push({
+                      pathname: menu.href,
+                      params: menu.params,
+                    });
               }}
               className="flex flex-row items-center mb-6">
               <menu.icon size={30} stroke="black" />
