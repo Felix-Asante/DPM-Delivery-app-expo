@@ -5,3 +5,7 @@ export enum BookingStatus {
   CANCELLED = 'cancelled',
   REJECTED = 'rejected',
 }
+export enum FILTERS {
+  CHEAP_DELIVERY = 'Cheap delivery',
+  SPECIAL_OFFERS = 'Special offers',
+}

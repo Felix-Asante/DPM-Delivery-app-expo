@@ -27,3 +27,7 @@ export const disLikePlace = (placeId: string) => {
   const endpoint = apiConfig.places.dislike(placeId);
   return makeApiRequest({endpoint, method: 'put'});
 };
+export const searchPlaces = (query: Query): Promise<Place[]> => {
+  const endpoint = apiConfig.places.search(query);
+  return makeApiRequest({endpoint, method: 'get'});
+};

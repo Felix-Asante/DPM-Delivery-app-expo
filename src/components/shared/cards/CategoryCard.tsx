@@ -1,5 +1,6 @@
+import {useRouter} from 'expo-router';
 import React from 'react';
-import {View, Text, ImageBackground, Image} from 'react-native';
+import {View, Text, ImageBackground, Image, Pressable} from 'react-native';
 
 import {Category} from '../../../types/category';
 import {mergeClassNames} from '../../../utils/helpers';
@@ -10,13 +11,19 @@ interface Props {
 }
 
 export default function CategoryCard({category, className}: Props) {
-  // before:absolute before:left-0 before:top-0 before:w-full before:-full before:bg-dark/10 before:-z-[2]
+  const router = useRouter();
   return (
-    <View
+    <Pressable
       className={mergeClassNames(
         'rounded-md relative w-32 mr-3 z-10 h-20',
         className,
-      )}>
+      )}
+      onPress={() =>
+        router.push({
+          pathname: '/(main)/Home/search',
+          params: {category: category.name},
+        })
+      }>
       <ImageBackground
         source={{uri: category?.image}}
         resizeMode="contain"
@@ -27,6 +34,6 @@ export default function CategoryCard({category, className}: Props) {
           </Text>
         </View>
       </ImageBackground>
-    </View>
+    </Pressable>
   );
 }

@@ -46,7 +46,11 @@ export default function BottomSheet(props: BottomSheetProps) {
         snapPoints={snapPoints}
         onChange={handleSheetChanges}
         onDismiss={closeSheet}
-        footerComponent={footerComponent}>
+        footerComponent={footerComponent}
+        // backdropComponent={backdropProps => (
+        //   <View className="bg-dark/10 w-full flex-1" {...backdropProps} />
+        // )}
+      >
         <BottomSheetScrollView>{children}</BottomSheetScrollView>
       </BottomSheetModal>
     </BottomSheetModalProvider>
