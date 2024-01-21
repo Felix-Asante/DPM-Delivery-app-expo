@@ -4698,6 +4698,11 @@ expo-font@~11.4.0:
   dependencies:
     fontfaceobserver "^2.1.0"
 
+expo-google-places-autocomplete@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/expo-google-places-autocomplete/-/expo-google-places-autocomplete-1.1.1.tgz#009c8378b46d5d4d513328926ffb0e58368325e6"
+  integrity sha512-2eqBw1Y1bBb8z2fhQy4nbuxLAXEKqH6bdGMdtrslZLvVYK0n6grw+bwaU+B0KM4mCz5/N2vxGvZVYDAE/0Z/cA==
+
 expo-head@0.0.20:
   version "0.0.20"
   resolved "https://registry.yarnpkg.com/expo-head/-/expo-head-0.0.20.tgz#a99d9f349110cae878e10a8d5a31749155fb5ab1"
