@@ -5,6 +5,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {View, Image, Text, TouchableOpacity, Pressable} from 'react-native';
 
 import Colors from '../../../constants/Colors';
+import {useGlobalStore} from '../../../store/global';
 import {Place} from '../../../types/place';
 import {Special} from '../../../types/specials';
 import {calculateDiscount} from '../../../utils/helpers';
@@ -35,14 +36,15 @@ export default function ContentCard({
 }: Props) {
   const [liked, setLiked] = useState(false);
   const router = useRouter();
+  const {userLocation} = useGlobalStore();
 
   const placePosition = {
     latitude: +place?.latitude,
     longitude: +place?.longitude,
   };
   const userPosition = {
-    latitude: +place?.latitude,
-    longitude: +place?.longitude,
+    latitude: userLocation?.lat ?? 0,
+    longitude: userLocation?.lng ?? 0,
   };
 
   const distance = calculateDistance({position: placePosition, userPosition});

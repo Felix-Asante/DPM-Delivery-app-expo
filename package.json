@@ -37,6 +37,7 @@
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
     "expo-web-browser": "~12.3.2",
+    "geolib": "^3.3.4",
     "lucide-react-native": "^0.307.0",
     "moti": "^0.27.2",
     "nativewind": "^2.0.11",

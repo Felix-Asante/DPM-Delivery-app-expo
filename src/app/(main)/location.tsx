@@ -38,7 +38,11 @@ export default function LocationPicker() {
     setUserLocation(location);
     await saveToSecureStore(LOCATION_KEY, JSON.stringify(location));
     await new Promise(resolve => setTimeout(() => resolve(1), 2000));
-    router.replace('/(main)/Home/home');
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace('/(main)/Home/home');
+    }
     setChangingLocation(false);
   };
 
@@ -64,7 +68,7 @@ export default function LocationPicker() {
               }}
               // currentLocation
               currentLocationLabel="Current label"
-              debounce={3000}
+              debounce={2000}
               enableHighAccuracyLocation
               placeholder="Search location"
               fetchDetails

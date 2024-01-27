@@ -47,13 +47,14 @@ export default function FeedsScreen() {
   });
 
   return (
-    <SafeAreaView>
-      <StatusBar barStyle="default" />
+    <SafeAreaView className="bg-white">
+      <StatusBar barStyle="dark-content" />
       <ScrollView
         className="pt-5 h-full bg-white"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }>
+        }
+        showsVerticalScrollIndicator={false}>
         <HomeHeader />
         <View className="px-3 pt-1">
           <ContentWithSliderSection

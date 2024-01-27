@@ -13,6 +13,7 @@ import {useReactHookForm} from '../../hooks/useReactHookForm';
 import {createBooking} from '../../lib/booking';
 import SummaryItem from '../../sections/main/SummaryItem';
 import CartItem from '../../sections/main/cart/CartItem';
+import {useGlobalStore} from '../../store/global';
 import {useAuthStore} from '../../store/useAuth';
 import {useCart} from '../../store/useCart';
 import {BookingDto} from '../../types/booking';
@@ -40,6 +41,7 @@ export default function CartScreen() {
   });
 
   const router = useRouter();
+  const {userLocation} = useGlobalStore();
 
   const bookingMutation = useMutation({
     mutationFn: (data: BookingDto) => createBooking(data),
@@ -92,7 +94,7 @@ export default function CartScreen() {
 
   return (
     <View className="h-full px-3 pt-14">
-      <ScrollView className="h-full">
+      <ScrollView className="h-full" showsVerticalScrollIndicator={false}>
         <View className="flex flex-row items-center gap-2 mb-5">
           <TouchableOpacity onPress={() => router.back()}>
             <ChevronLeftIcon size={30} className=" text-primary" />
@@ -115,7 +117,9 @@ export default function CartScreen() {
               <Text className="text-lg text-black mb-2 font-bold">
                 Delivery details
               </Text>
-              <Pressable className="flex-row mb-8 bg-light-200 border border-light-200 p-3 rounded-md items-center justify-between">
+              <TouchableOpacity
+                onPress={() => router.push('/(main)/location')}
+                className="flex-row mb-8 bg-light-200 border border-light-200 p-3 rounded-md items-center justify-between">
                 <View className="flex-row">
                   <Milestone size={28} color={Colors.primary.main} />
                   <View className="ml-3">
@@ -123,12 +127,12 @@ export default function CartScreen() {
                       Deliver to current address:
                     </Text>
                     <Text className="font-medium  text-dark">
-                      Donkorkrom retail shop22, bank avenue
+                      {userLocation?.main_text}
                     </Text>
                   </View>
                 </View>
                 <ChevronRight size={18} color={Colors.dark.main} />
-              </Pressable>
+              </TouchableOpacity>
               <Input
                 label="Email"
                 placeholder="email@example.com"

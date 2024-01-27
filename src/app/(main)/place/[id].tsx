@@ -32,6 +32,7 @@ import {
 } from '../../../lib/places';
 import Menu from '../../../sections/main/place/Menu';
 import MenuDetails from '../../../sections/main/place/MenuDetails';
+import {useGlobalStore} from '../../../store/global';
 import {useAuthStore} from '../../../store/useAuth';
 import {useCart} from '../../../store/useCart';
 import {CartItem} from '../../../types/booking';
@@ -62,13 +63,18 @@ export default function PlacePage() {
   });
 
   const cart = useCart(state => state.cart);
+  const {userLocation} = useGlobalStore();
 
   const distance = useMemo(() => {
     const position = {
       latitude: place?.latitude ? +place?.latitude : 0,
       longitude: place?.longitude ? +place?.longitude : 0,
     };
-    const d: any = calculateDistance({userPosition: position, position});
+    const userPosition = {
+      latitude: userLocation?.lat ?? 0,
+      longitude: userLocation?.lng ?? 0,
+    };
+    const d: any = calculateDistance({userPosition, position});
     const distanceKm = d ? d / 1000 : d;
     return Number(distanceKm).toFixed(1);
   }, [calculateDistance, place]);

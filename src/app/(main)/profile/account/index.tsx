@@ -49,7 +49,7 @@ export default function Account() {
     <View className="px-3 pt-16 h-full">
       <StatusBar barStyle="dark-content" />
       <GoBack label="Account Details" />
-      <View className="h-[35%] justify-center">
+      <View className="h-[35%] justify-center mt-4">
         <Input
           control={control}
           startContent={<User2 color={Colors.light.main} size={20} />}

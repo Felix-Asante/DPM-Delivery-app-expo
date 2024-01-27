@@ -74,7 +74,7 @@ export default function AppHomeLayout() {
         />
       </Tabs>
       {cart?.length > 0 && (
-        <Pressable className="w-full bg-white p-4 border-b border-light-200 absolute bottom-[78px]">
+        <Pressable className="w-full bg-white p-4 border-b border-light-200 absolute bottom-[7.2%]">
           <CustomButton
             label={`Checkout ${cart.length} ${
               cart.length > 1 ? 'items' : 'item'

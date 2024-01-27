@@ -1,3 +1,5 @@
+import {getDistance} from 'geolib';
+
 import {Position} from '../../types';
 
 interface CalculateDistance {
@@ -9,28 +11,8 @@ export function calculateDistance({position, userPosition}: CalculateDistance) {
     return;
   }
 
-  const earthRadius = 6371;
-
-  const currentUserLat = userPosition.latitude;
-  const currentUserLong = userPosition.longitude;
-
-  const deliveryLat = position.latitude;
-  const deliveryLong = position.longitude;
-
-  const lonDelta = ((deliveryLong - currentUserLong) * Math.PI) / 180;
-  const latDelta = ((deliveryLat - currentUserLat) * Math.PI) / 180;
-
-  const a =
-    Math.sin(latDelta / 2) * Math.sin(latDelta / 2) +
-    Math.cos((currentUserLat * Math.PI) / 180) *
-      Math.cos((deliveryLat * Math.PI) / 180) *
-      Math.sin(lonDelta / 2) *
-      Math.sin(lonDelta / 2);
-
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-
-  const distance = earthRadius * c;
-
+  const distance = getDistance(position, userPosition, 1); // distance in m
+  // console.log(getDistance(position, userPosition, 1) / 1000);
   return distance.toFixed(2);
 }
 
