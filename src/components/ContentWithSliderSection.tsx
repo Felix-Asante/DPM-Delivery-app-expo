@@ -104,8 +104,9 @@ export default function ContentWithSliderSection<T>(
     </View>
   ) : (
     <View className="flex flex-row">
-      <ContentSectionSkeleton />
-      <ContentSectionSkeleton />
+      {/* <ContentSectionSkeleton />
+      <ContentSectionSkeleton /> */}
+      <Text>loading...</Text>
     </View>
   );
 }

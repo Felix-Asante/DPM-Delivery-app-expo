@@ -1,21 +1,25 @@
 import {create} from 'zustand';
 
 import {getAllCategories} from '../lib/category';
+import {UserLocation} from '../types';
 import {Category} from '../types/category';
 
 interface Store {
   categories: Category[] | [];
   selectedCategories: string[];
   selectedFilters: string[];
+  userLocation: UserLocation | null;
   fetchCategories: () => void;
   initGlobalStore: () => void;
   setSelectedCategories: (categories: string[]) => void;
   setSelectedFilters: (filters: string[]) => void;
+  setUserLocation: (location: UserLocation | null) => void;
 }
 export const useGlobalStore = create<Store>((set, get) => ({
   categories: [],
   selectedCategories: [],
   selectedFilters: [],
+  userLocation: null,
   fetchCategories: async () => {
     try {
       const categories = await getAllCategories();
@@ -29,6 +33,9 @@ export const useGlobalStore = create<Store>((set, get) => ({
   },
   setSelectedFilters(filters: string[]) {
     set({selectedFilters: filters});
+  },
+  setUserLocation(location) {
+    set({userLocation: location});
   },
   initGlobalStore: async () => {
     await get().fetchCategories();

@@ -1,38 +1,16 @@
-import PlacesAutocomplete from 'expo-google-places-autocomplete';
 import {Link, useRouter} from 'expo-router';
 import {LocateFixed, ShoppingBag} from 'lucide-react-native';
-import React, {useEffect, useState} from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
 
 import Colors from '../../../constants/Colors';
+import {useGlobalStore} from '../../../store/global';
 import {useCart} from '../../../store/useCart';
-import {toastErrorMessage} from '../../../utils/toast';
 
 export default function AppHeader() {
   const cart = useCart(state => state.cart);
+  const {userLocation} = useGlobalStore();
   const router = useRouter();
-  const [results, setResults] = useState<any[]>([]);
-
-  useEffect(() => {
-    if (process.env.EXPO_PUBLIC_GOOGLE_API_KEY) {
-      PlacesAutocomplete.initPlaces(process.env.EXPO_PUBLIC_GOOGLE_API_KEY);
-    } else {
-      toastErrorMessage(
-        'You cannot use this feature at the moment, try again later',
-      );
-    }
-  }, []);
-
-  const findPlaces = React.useCallback(async (location: string) => {
-    try {
-      const result = await PlacesAutocomplete.findPlaces(location, {
-        countries: ['GH'],
-      });
-      setResults(result.places);
-    } catch (e) {
-      console.log(e);
-    }
-  }, []);
 
   return (
     <View className="mb-1 px-3">
@@ -42,7 +20,9 @@ export default function AppHeader() {
           <TouchableOpacity
             onPress={() => router.push('/(main)/location')}
             className="flex flex-row items-center justify-between gap-2">
-            <Text className="font-bold  text-dark ">Aflao border</Text>
+            <Text className="font-bold  text-dark ">
+              {userLocation?.main_text}
+            </Text>
             <LocateFixed size={18} color={Colors.primary.main} />
           </TouchableOpacity>
         </View>

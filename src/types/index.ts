@@ -24,3 +24,13 @@ export interface Likes {
   user: User;
   place: Place;
 }
+
+export interface UserLocation {
+  description: string;
+  main_text: string;
+  display_name: string;
+  lat?: number;
+  lng?: number;
+  reference: string;
+  place_id: string;
+}
