@@ -6,11 +6,13 @@ import {useEffect, useState} from 'react';
 
 import Providers from '../components/Providers';
 import ErrorMessage from '../components/shared/errors/ErrorMessage';
+import {LOCATION_KEY} from '../constants';
 import Colors from '../constants/Colors';
 import {useGlobalStore} from '../store/global';
 import {useAuthStore} from '../store/useAuth';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
+import {getFromSecureStore} from '../utils/helpers';
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -34,8 +36,15 @@ export default function RootLayout() {
     boolean | null
   >(null);
 
-  const {initGlobalStore} = useGlobalStore();
+  const {initGlobalStore, setUserLocation} = useGlobalStore();
   const {fetchCurrentUser} = useAuthStore();
+
+  const getSavedUserLocation = async () => {
+    const location = await getFromSecureStore(LOCATION_KEY);
+    if (location) {
+      setUserLocation(JSON.parse(location));
+    }
+  };
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
     console.log('error', error);
@@ -45,13 +54,14 @@ export default function RootLayout() {
   // initial global store
   useEffect(() => {
     (async () => {
+      await getSavedUserLocation();
       await initGlobalStore();
-      await fetchCurrentUser();
     })();
   }, []);
 
   useEffect(() => {
     if (loaded) {
+      fetchCurrentUser();
       SplashScreen.hideAsync();
     }
   }, [loaded]);

@@ -9,8 +9,10 @@ import {
 } from 'react-native-google-places-autocomplete';
 
 import FullScreenLoader from '../../components/FullScreenLoader';
+import {LOCATION_KEY} from '../../constants';
 import Colors from '../../constants/Colors';
 import {useGlobalStore} from '../../store/global';
+import {saveToSecureStore} from '../../utils/helpers';
 
 export default function LocationPicker() {
   const router = useRouter();
@@ -22,7 +24,7 @@ export default function LocationPicker() {
     details: GooglePlaceDetail | null,
   ) => {
     setChangingLocation(true);
-    setUserLocation({
+    const location = {
       description: data.description,
       main_text: data.structured_formatting.main_text,
       place_id: data.place_id,
@@ -32,7 +34,9 @@ export default function LocationPicker() {
         data.structured_formatting.main_text,
       lat: details?.geometry.location.lat,
       lng: details?.geometry.location.lng,
-    });
+    };
+    setUserLocation(location);
+    await saveToSecureStore(LOCATION_KEY, JSON.stringify(location));
     await new Promise(resolve => setTimeout(() => resolve(1), 2000));
     router.replace('/(main)/Home/home');
     setChangingLocation(false);
