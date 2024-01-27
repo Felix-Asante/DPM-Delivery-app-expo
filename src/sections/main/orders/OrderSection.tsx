@@ -1,4 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
+import {Skeleton} from 'moti/skeleton';
 import React, {useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
 
@@ -22,14 +23,7 @@ export default function OrderSection({status}: Props) {
 
   const [selectedOrder, setSelectedOrder] = useState<Booking | null>(null);
 
-  if (isLoading)
-    return (
-      <View className="pr-4">
-        {[1, 2, 3, 4].map(i => (
-          <OrdersSkeleton key={i} />
-        ))}
-      </View>
-    );
+  if (isLoading) return <OrdersSkeleton />;
 
   if (data?.length === 0 && !isLoading) {
     return (

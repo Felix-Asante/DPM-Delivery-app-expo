@@ -9,6 +9,8 @@ import ErrorMessage from '../components/shared/errors/ErrorMessage';
 import Colors from '../constants/Colors';
 import {useGlobalStore} from '../store/global';
 import {useAuthStore} from '../store/useAuth';
+import 'react-native-reanimated';
+import 'react-native-gesture-handler';
 
 export {
   // Catch any errors thrown by the Layout component.

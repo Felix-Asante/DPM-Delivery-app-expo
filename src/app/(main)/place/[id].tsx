@@ -201,7 +201,7 @@ export default function PlacePage() {
 
             <View className="mt-5">
               {fetchingMenu ? (
-                [1, 2, 3, 4].map(i => <ServicesSkeleton key={i} />)
+                <ServicesSkeleton />
               ) : services && services?.length > 0 ? (
                 services?.map((service, i) => (
                   <Menu

@@ -38,8 +38,10 @@ export const useAuthStore = create<Store>(set => ({
     try {
       set({loggingOut: true});
       await deleteFromSecureStore(TOKEN_KEY);
-      await deleteFromSecureStore(SKIP_ONBOARDING_KEY);
-      set({user: null, loggingOut: false});
+      // await deleteFromSecureStore(SKIP_ONBOARDING_KEY);
+      setTimeout(() => {
+        set({user: null, loggingOut: false});
+      }, 2000);
     } catch (error) {
       console.log('Failed to logout');
     }

@@ -1,5 +1,5 @@
 import * as Linking from 'expo-linking';
-import {useRouter} from 'expo-router';
+import {Link, useRouter} from 'expo-router';
 import {
   BadgePercent,
   Heart,
@@ -55,7 +55,16 @@ export default function Profile() {
     <SafeAreaView className="h-full bg-white">
       <StatusBar barStyle="dark-content" />
       <View className="px-5 pt-8">
-        <Text className="font-bold text-lg text-dark mb-4">Profile</Text>
+        <View className="flex flex-row items-center justify-between mb-4">
+          <Text className="font-bold text-lg text-dark ">Profile</Text>
+          {!user && (
+            <Link
+              href="/(auth)/auth/login"
+              className="text-primary font-semibold">
+              Login
+            </Link>
+          )}
+        </View>
         {user && (
           <View className=" bg-primary/10 border-primary/50 border px-3 py-3 rounded-md">
             <View className="flex flex-row items-center ">
@@ -73,7 +82,7 @@ export default function Profile() {
             </View>
           </View>
         )}
-        <View className="mt-11">
+        <View className={!user ? 'mt-8' : 'mt-11'}>
           {Menus.map(menu => (
             <TouchableOpacity
               key={menu.label}
