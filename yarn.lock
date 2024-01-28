@@ -4771,11 +4771,6 @@ expo-font@~11.4.0:
   dependencies:
     fontfaceobserver "^2.1.0"
 
-expo-google-places-autocomplete@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/expo-google-places-autocomplete/-/expo-google-places-autocomplete-1.1.1.tgz#009c8378b46d5d4d513328926ffb0e58368325e6"
-  integrity sha512-2eqBw1Y1bBb8z2fhQy4nbuxLAXEKqH6bdGMdtrslZLvVYK0n6grw+bwaU+B0KM4mCz5/N2vxGvZVYDAE/0Z/cA==
-
 expo-head@0.0.20:
   version "0.0.20"
   resolved "https://registry.yarnpkg.com/expo-head/-/expo-head-0.0.20.tgz#a99d9f349110cae878e10a8d5a31749155fb5ab1"
@@ -4803,6 +4798,11 @@ expo-linking@~5.0.2:
     invariant "^2.2.4"
     qs "^6.11.0"
     url-parse "^1.5.9"
+
+expo-location@~16.1.0:
+  version "16.1.0"
+  resolved "https://registry.yarnpkg.com/expo-location/-/expo-location-16.1.0.tgz#251a465790d6622f828fd18f0edb2a73b9664b72"
+  integrity sha512-/jfRyYrXb9vjr8HoYmVHnzEqnw+0jaoRbHsxj6ePPAbevXmvXZqYHFRtfZtQ+q32SB4X6kUAXu28eBcLS+tqaA==
 
 expo-modules-autolinking@1.5.1:
   version "1.5.1"

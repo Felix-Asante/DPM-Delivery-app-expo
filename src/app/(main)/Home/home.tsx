@@ -1,5 +1,5 @@
 import {useQuery} from '@tanstack/react-query';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   RefreshControl,
   SafeAreaView,
@@ -12,6 +12,7 @@ import {
 import ContentWithSliderSection from '../../../components/ContentWithSliderSection';
 import CategoryCard from '../../../components/shared/cards/CategoryCard';
 import ContentCard from '../../../components/shared/cards/ContentCard';
+import {UseLocation} from '../../../hooks/UseLocation';
 import {getNewPlaces, getPopularPlaces} from '../../../lib/places';
 import {getPlacesWithOffers} from '../../../lib/specials';
 import HomeHeader from '../../../sections/main/home/HomeHeader';
@@ -20,6 +21,7 @@ import {useGlobalStore} from '../../../store/global';
 export default function FeedsScreen() {
   const {categories} = useGlobalStore();
   const [refreshing, setRefreshing] = useState(false);
+  const {requestUserLocation} = UseLocation();
 
   const {data: offers, isLoading} = useQuery({
     queryKey: ['specialOffers', refreshing],
@@ -45,6 +47,10 @@ export default function FeedsScreen() {
     queryFn: () => getPopularPlaces(),
     placeholderData: previousData => previousData,
   });
+
+  useEffect(() => {
+    requestUserLocation();
+  }, []);
 
   return (
     <SafeAreaView className="bg-white">

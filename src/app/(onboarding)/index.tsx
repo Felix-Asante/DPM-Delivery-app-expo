@@ -1,11 +1,11 @@
-import {Link, useRouter, SplashScreen} from 'expo-router';
-import React, {useEffect} from 'react';
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {SplashScreen, useRouter} from 'expo-router';
+import React from 'react';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import {SKIP_ONBOARDING_KEY} from '../../constants';
 import Colors from '../../constants/Colors';
-import {getFromSecureStore, saveToSecureStore} from '../../utils/helpers';
+import {saveToSecureStore} from '../../utils/helpers';
 
 const CONTENT = [
   {
@@ -33,23 +33,12 @@ export default function Onboarding() {
 
   const skipOnboarding = async () => {
     await saveToSecureStore(SKIP_ONBOARDING_KEY, 'true');
-    router.replace('/(main)/Home/home');
+    router.replace('/(main)/location');
   };
-
-  // go to home if onboarding is skipped / already visited
-  useEffect(() => {
-    (async () => {
-      const skip = await getFromSecureStore(SKIP_ONBOARDING_KEY);
-      if (skip !== null && skip === 'true') {
-        router.replace('/(main)/Home/home');
-      }
-      SplashScreen.hideAsync();
-    })();
-  }, []);
 
   return (
     <View className="h-full bg-primary">
-      <View className="bg-white px-2 pt-20 h-[80%] rounded-b-3xl">
+      <View className="bg-white px-2 pt-14 h-[80%] rounded-b-3xl">
         <TouchableOpacity
           onPress={skipOnboarding}
           className="items-end mb-2 pr-3">

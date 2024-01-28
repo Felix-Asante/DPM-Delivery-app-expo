@@ -9,17 +9,20 @@ interface Store {
   selectedCategories: string[];
   selectedFilters: string[];
   userLocation: UserLocation | null;
+  currentLocation: UserLocation | null;
   fetchCategories: () => void;
   initGlobalStore: () => void;
   setSelectedCategories: (categories: string[]) => void;
   setSelectedFilters: (filters: string[]) => void;
   setUserLocation: (location: UserLocation | null) => void;
+  setCurrentLocation: (location: UserLocation | null) => void;
 }
 export const useGlobalStore = create<Store>((set, get) => ({
   categories: [],
   selectedCategories: [],
   selectedFilters: [],
   userLocation: null,
+  currentLocation: null,
   fetchCategories: async () => {
     try {
       const categories = await getAllCategories();
@@ -36,6 +39,9 @@ export const useGlobalStore = create<Store>((set, get) => ({
   },
   setUserLocation(location) {
     set({userLocation: location});
+  },
+  setCurrentLocation(location) {
+    set({currentLocation: location});
   },
   initGlobalStore: async () => {
     await get().fetchCategories();

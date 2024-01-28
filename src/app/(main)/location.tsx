@@ -1,7 +1,7 @@
 import {useRouter} from 'expo-router';
-import {XIcon} from 'lucide-react-native';
-import React, {useState} from 'react';
-import {Pressable, Text, View} from 'react-native';
+import {MapPin, XIcon} from 'lucide-react-native';
+import React, {useEffect, useState} from 'react';
+import {Pressable, Text, TouchableOpacity, View} from 'react-native';
 import {
   GooglePlaceData,
   GooglePlaceDetail,
@@ -11,13 +11,20 @@ import {
 import FullScreenLoader from '../../components/FullScreenLoader';
 import {LOCATION_KEY} from '../../constants';
 import Colors from '../../constants/Colors';
+import {UseLocation} from '../../hooks/UseLocation';
 import {useGlobalStore} from '../../store/global';
 import {saveToSecureStore} from '../../utils/helpers';
 
 export default function LocationPicker() {
   const router = useRouter();
   const [changingLocation, setChangingLocation] = useState(false);
-  const {setUserLocation} = useGlobalStore();
+
+  const {setUserLocation, userLocation, currentLocation} = useGlobalStore();
+  const {requestUserLocation, locationDenied} = UseLocation();
+
+  useEffect(() => {
+    requestUserLocation();
+  }, []);
 
   const addUserLocation = async (
     data: GooglePlaceData,
@@ -51,11 +58,19 @@ export default function LocationPicker() {
       {changingLocation ? (
         <FullScreenLoader />
       ) : (
-        <View className="pt-12 px-2 h-full bg-white">
+        <View className="pt-14 px-2 h-full bg-white">
           <View className="flex-row items-center mb-4">
-            <Pressable className="mr-8" onPress={() => router.back()}>
-              <XIcon size={25} color={Colors.dark.main} />
-            </Pressable>
+            {(router.canGoBack() || userLocation) && (
+              <Pressable
+                className="mr-4"
+                onPress={() =>
+                  router.canGoBack()
+                    ? router.back()
+                    : router.replace('/(main)/Home/home')
+                }>
+                <XIcon size={25} color={Colors.dark.main} />
+              </Pressable>
+            )}
             <Text className="font-bold text-lg">Delivery Address</Text>
           </View>
 
@@ -89,6 +104,26 @@ export default function LocationPicker() {
                 },
               }}
             />
+            <TouchableOpacity
+              onPress={() => {
+                if (locationDenied) {
+                  requestUserLocation();
+                } else {
+                  setUserLocation(currentLocation);
+                  router.canGoBack() && router.back();
+                }
+              }}
+              className="mt-3 flex flex-row items-center absolute top-12 -z-10">
+              <MapPin size={25} color={Colors.black.main} />
+              <View className="ml-3">
+                <Text className="text-black">Current Location</Text>
+                <Text className="text-light text-sm">
+                  {locationDenied
+                    ? 'Allow location permission'
+                    : currentLocation?.main_text}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       )}

@@ -1,4 +1,4 @@
-import {getDistance} from 'geolib';
+import {getPreciseDistance} from 'geolib';
 
 import {Position} from '../../types';
 
@@ -11,7 +11,7 @@ export function calculateDistance({position, userPosition}: CalculateDistance) {
     return;
   }
 
-  const distance = getDistance(position, userPosition, 1); // distance in m
+  const distance = getPreciseDistance(position, userPosition, 1); // distance in m
   // console.log(getDistance(position, userPosition, 1) / 1000);
   return distance.toFixed(2);
 }

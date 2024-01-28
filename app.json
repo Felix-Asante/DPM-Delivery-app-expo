@@ -41,6 +41,13 @@
             "deploymentTarget": "13.0"
           }
         }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": " $(PRODUCT_NAME) would like to access your location.",
+          "locationAlwaysPermission": " $(PRODUCT_NAME) would like to access your location."
+        }
       ]
     ],
     "experiments": {

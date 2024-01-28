@@ -180,7 +180,9 @@ export default function PlacePage() {
               <View className="flex-row items-center py-1.5">
                 <Truck color={Colors.primary.main} />
                 <View className="ml-2">
-                  <Text className="text-black text-[16px]">{distance} km</Text>
+                  <Text className="text-black text-[16px]">
+                    {Number(+distance / 1000).toFixed(2)} km
+                  </Text>
                   <Text className="text-light text-[14px] ">
                     Delivery available -{' '}
                     {place?.deliveryFee && place?.deliveryFee > 0

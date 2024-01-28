@@ -4,14 +4,14 @@ import {SplashScreen, Stack} from 'expo-router';
 import {WifiOffIcon} from 'lucide-react-native';
 import {useEffect, useState} from 'react';
 
+import 'react-native-gesture-handler';
+import 'react-native-reanimated';
 import Providers from '../components/Providers';
 import ErrorMessage from '../components/shared/errors/ErrorMessage';
 import {LOCATION_KEY} from '../constants';
 import Colors from '../constants/Colors';
 import {useGlobalStore} from '../store/global';
 import {useAuthStore} from '../store/useAuth';
-import 'react-native-reanimated';
-import 'react-native-gesture-handler';
 import {getFromSecureStore} from '../utils/helpers';
 
 export {
@@ -21,7 +21,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  // initialRouteName: '(onboarding)',
+  initialRouteName: '/(main)/Home/home',
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -45,15 +45,16 @@ export default function RootLayout() {
       setUserLocation(JSON.parse(location));
     }
   };
+
   // Expo Router uses Error Boundaries to catch errors in the navigation tree.
   useEffect(() => {
-    console.log('error', error);
     if (error) throw error;
   }, [error]);
 
   // initial global store
   useEffect(() => {
     (async () => {
+      // requestUserLocation();
       await getSavedUserLocation();
       await initGlobalStore();
     })();
@@ -78,7 +79,7 @@ export default function RootLayout() {
     return null;
   }
 
-  if (!isConnectedToInternet)
+  if (!isConnectedToInternet) {
     return (
       <ErrorMessage
         title="Internet not connected"
@@ -88,6 +89,7 @@ export default function RootLayout() {
         description="Make sure your internet is accessible"
       />
     );
+  }
 
   return <RootLayoutNav />;
 }
