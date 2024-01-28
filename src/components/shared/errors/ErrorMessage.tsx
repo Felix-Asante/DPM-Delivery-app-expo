@@ -29,7 +29,7 @@ export default function ErrorMessage(props: ErrorMessageProps) {
         />
       )}
       <Text className="font-bold text-lg mb-1">{title}</Text>
-      <Text className="text-light mb-1">{description}</Text>
+      <Text className="text-light mb-1 w-[90%] text-center">{description}</Text>
       {action}
     </View>
   );

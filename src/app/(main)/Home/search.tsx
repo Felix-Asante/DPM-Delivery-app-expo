@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 
 import BottomSheet from '../../../components/BottomSheet';
+import IsWithinDeliveryLocation from '../../../components/guards/IsWithinDeliveryLocation';
 import ContentCard from '../../../components/shared/cards/ContentCard';
 import Input from '../../../components/shared/inputs';
 import Colors from '../../../constants/Colors';
@@ -81,61 +82,63 @@ export default function SearchScreen() {
   }, [data, selectedCategories, selectedFilters]);
 
   return (
-    <View className="pt-20 px-3 min-h-full bg-white">
-      <StatusBar barStyle="dark-content" />
-      <View className="flex-row  space-x-5 mb-5">
-        <View className="w-[85%]">
-          <Input
-            startContent={<Search size={20} color={Colors.light.main} />}
-            placeholder="What are you craving?"
-            control={control}
-            name="search"
-          />
+    <IsWithinDeliveryLocation>
+      <View className="pt-20 px-3 min-h-full bg-white">
+        <StatusBar barStyle="dark-content" />
+        <View className="flex-row  space-x-5 mb-5">
+          <View className="w-[85%]">
+            <Input
+              startContent={<Search size={20} color={Colors.light.main} />}
+              placeholder="What are you craving?"
+              control={control}
+              name="search"
+            />
+          </View>
+          <TouchableOpacity
+            className="pt-2.5"
+            disabled={isLoading || data?.length === 0}
+            onPress={() => setShowFilters(true)}>
+            <SlidersHorizontal
+              size={25}
+              color={
+                isLoading || data?.length === 0
+                  ? Colors.light.main
+                  : Colors.primary.main
+              }
+            />
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          className="pt-2.5"
-          disabled={isLoading || data?.length === 0}
-          onPress={() => setShowFilters(true)}>
-          <SlidersHorizontal
-            size={25}
-            color={
-              isLoading || data?.length === 0
-                ? Colors.light.main
-                : Colors.primary.main
+        {isLoading ? (
+          <ActivityIndicator size="small" color={Colors.primary.main} />
+        ) : (
+          <FlatList
+            data={filteredResult}
+            keyExtractor={item => item?.id!}
+            renderItem={place => (
+              <View className="mb-4">
+                <ContentCard
+                  width="w-full"
+                  imageHeight="h-[150px]"
+                  place={place?.item!}
+                />
+              </View>
+            )}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshing}
+                onRefresh={onRefresh}
+                tintColor={Colors.primary.main}
+              />
             }
           />
-        </TouchableOpacity>
+        )}
+        <BottomSheet
+          snapPoints={['25%', '90%']}
+          open={showFilters}
+          onClose={() => setShowFilters(false)}>
+          <SearchFilters onClose={() => setShowFilters(false)} />
+        </BottomSheet>
       </View>
-      {isLoading ? (
-        <ActivityIndicator size="small" color={Colors.primary.main} />
-      ) : (
-        <FlatList
-          data={filteredResult}
-          keyExtractor={item => item?.id!}
-          renderItem={place => (
-            <View className="mb-4">
-              <ContentCard
-                width="w-full"
-                imageHeight="h-[150px]"
-                place={place?.item!}
-              />
-            </View>
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              tintColor={Colors.primary.main}
-            />
-          }
-        />
-      )}
-      <BottomSheet
-        snapPoints={['25%', '90%']}
-        open={showFilters}
-        onClose={() => setShowFilters(false)}>
-        <SearchFilters onClose={() => setShowFilters(false)} />
-      </BottomSheet>
-    </View>
+    </IsWithinDeliveryLocation>
   );
 }

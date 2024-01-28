@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 
 import ContentWithSliderSection from '../../../components/ContentWithSliderSection';
+import IsWithinDeliveryLocation from '../../../components/guards/IsWithinDeliveryLocation';
 import CategoryCard from '../../../components/shared/cards/CategoryCard';
 import ContentCard from '../../../components/shared/cards/ContentCard';
 import {UseLocation} from '../../../hooks/UseLocation';
@@ -62,55 +63,57 @@ export default function FeedsScreen() {
         }
         showsVerticalScrollIndicator={false}>
         <HomeHeader />
-        <View className="px-3 pt-1">
-          <ContentWithSliderSection
-            content={offers || []}
-            sectionTitle="Special offers 🎉😍"
-            renderData={({item}) => (
-              <ContentCard
-                reductionPercent={item?.reductionPercent}
-                price={item?.price}
-                place={item.place}
-                offer={item}
-                isOffer
-              />
-            )}
-            loading={isLoading}
-            href="/(main)/Home/profile"
-          />
-          <ContentWithSliderSection
-            content={categories.slice(0, 8)}
-            sectionTitle="Top Categories"
-            renderData={({item}) => <CategoryCard category={item} />}
-            loading={false}
-          />
-          <ContentWithSliderSection
-            content={newPlaces || []}
-            sectionTitle="New places 😍⚡️"
-            renderData={({item}) => (
-              <ContentCard
-                reductionPercent={item?.averagePrice}
-                price={item?.averagePrice}
-                place={item}
-              />
-            )}
-            loading={loadingNewPlaces}
-            href="/(main)/Home/profile"
-          />
-          <ContentWithSliderSection
-            content={popularPlaces || []}
-            sectionTitle="Your local favorites"
-            renderData={({item}) => (
-              <ContentCard
-                reductionPercent={item?.averagePrice}
-                price={item?.averagePrice}
-                place={item}
-              />
-            )}
-            loading={loadingPopularPlaces}
-            href="/(main)/Home/profile"
-          />
-        </View>
+        <IsWithinDeliveryLocation>
+          <View className="px-3 pt-1">
+            <ContentWithSliderSection
+              content={offers || []}
+              sectionTitle="Special offers 🎉😍"
+              renderData={({item}) => (
+                <ContentCard
+                  reductionPercent={item?.reductionPercent}
+                  price={item?.price}
+                  place={item.place}
+                  offer={item}
+                  isOffer
+                />
+              )}
+              loading={isLoading}
+              href="/(main)/Home/profile"
+            />
+            <ContentWithSliderSection
+              content={categories.slice(0, 8)}
+              sectionTitle="Top Categories"
+              renderData={({item}) => <CategoryCard category={item} />}
+              loading={false}
+            />
+            <ContentWithSliderSection
+              content={newPlaces || []}
+              sectionTitle="New places 😍⚡️"
+              renderData={({item}) => (
+                <ContentCard
+                  reductionPercent={item?.averagePrice}
+                  price={item?.averagePrice}
+                  place={item}
+                />
+              )}
+              loading={loadingNewPlaces}
+              href="/(main)/Home/profile"
+            />
+            <ContentWithSliderSection
+              content={popularPlaces || []}
+              sectionTitle="Your local favorites"
+              renderData={({item}) => (
+                <ContentCard
+                  reductionPercent={item?.averagePrice}
+                  price={item?.averagePrice}
+                  place={item}
+                />
+              )}
+              loading={loadingPopularPlaces}
+              href="/(main)/Home/profile"
+            />
+          </View>
+        </IsWithinDeliveryLocation>
       </ScrollView>
     </SafeAreaView>
   );
