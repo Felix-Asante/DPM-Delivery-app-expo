@@ -1,5 +1,5 @@
 import {useMutation} from '@tanstack/react-query';
-import {Link, useRouter} from 'expo-router';
+import {Link, useLocalSearchParams, useRouter} from 'expo-router';
 import {PhoneIcon} from 'lucide-react-native';
 import React from 'react';
 import {
@@ -11,6 +11,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
+import GoBack from '../../../components/GoBack';
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import Container from '../../../components/shared/Container';
 import PasswordInput from '../../../components/shared/inputs/PasswordInput';
@@ -33,6 +34,8 @@ export default function LoginScreen() {
   const router = useRouter();
   const {setUser} = useAuthStore();
 
+  const {canGoBack} = useLocalSearchParams();
+
   const loginMutation = useMutation({mutationFn: login});
 
   const loginUser = (data: LoginDto) => {
@@ -50,9 +53,10 @@ export default function LoginScreen() {
   return (
     <SafeAreaView className="h-full bg-white ">
       <Container>
+        {canGoBack === 'true' && <GoBack label="Back" />}
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <View className="h-full justify-center items-center w-[88%] mx-auto">
+          <View className="h-[95%] justify-center items-center w-[88%] mx-auto">
             <Image
               source={require('../../../../assets/images/app-logo.jpeg')}
               className="w-48 h-32"

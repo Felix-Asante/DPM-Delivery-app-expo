@@ -7,39 +7,14 @@ import {
   Share2,
   User2,
 } from 'lucide-react-native';
-import React from 'react';
+import React, {Fragment, useMemo} from 'react';
 import {SafeAreaView, StatusBar, Text, View, Share} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
+import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import {useAuthStore} from '../../../store/useAuth';
 import {getInitials} from '../../../utils/helpers';
 
-const Menus = [
-  {
-    label: 'Favorites',
-    href: '(main)/profile/favorites',
-    icon: Heart,
-    params: {type: 'FAVORITES'},
-  },
-  {
-    label: 'Special Offers & Promo',
-    href: '(main)/profile/favorites',
-    icon: BadgePercent,
-    params: {type: 'OFFERS'},
-  },
-  {
-    label: 'Profile',
-    href: '(main)/profile/',
-    icon: User2,
-    params: {},
-  },
-  {
-    label: 'Help',
-    href: '(main)/profile/help',
-    icon: HeartHandshake,
-    params: {},
-  },
-];
 export default function Profile() {
   const {user} = useAuthStore();
   const router = useRouter();
@@ -51,19 +26,42 @@ export default function Profile() {
       {subject: 'Invite a friend'},
     );
   };
+  const Menus = useMemo(() => {
+    return [
+      {
+        label: 'Favorites',
+        href: '(main)/profile/favorites',
+        icon: Heart,
+        params: {type: 'FAVORITES'},
+        hide: user === null,
+      },
+      {
+        label: 'Special Offers & Promo',
+        href: '(main)/profile/favorites',
+        icon: BadgePercent,
+        params: {type: 'OFFERS'},
+      },
+      {
+        label: 'Profile',
+        href: '(main)/profile/',
+        icon: User2,
+        params: {},
+        hide: user === null,
+      },
+      {
+        label: 'Help',
+        href: '(main)/profile/help',
+        icon: HeartHandshake,
+        params: {},
+      },
+    ];
+  }, [user]);
   return (
     <SafeAreaView className="h-full bg-white">
       <StatusBar barStyle="dark-content" />
       <View className="px-5 pt-8">
         <View className="flex flex-row items-center justify-between mb-4">
           <Text className="font-bold text-lg text-dark ">Profile</Text>
-          {!user && (
-            <Link
-              href="/(auth)/auth/login"
-              className="text-primary font-semibold">
-              Login
-            </Link>
-          )}
         </View>
         {user && (
           <View className=" bg-primary/10 border-primary/50 border px-3 py-3 rounded-md">
@@ -84,23 +82,27 @@ export default function Profile() {
         )}
         <View className={!user ? 'mt-8' : 'mt-11'}>
           {Menus.map(menu => (
-            <TouchableOpacity
-              key={menu.label}
-              onPress={() => {
-                menu.label === 'Profile' && !user
-                  ? null
-                  : // @ts-ignore
-                    router.push({
-                      pathname: menu.href,
-                      params: menu.params,
-                    });
-              }}
-              className="flex flex-row items-center mb-6">
-              <menu.icon size={30} stroke="black" />
-              <Text className="text-black font-normal ml-3 text-[16px]">
-                {menu.label}
-              </Text>
-            </TouchableOpacity>
+            <Fragment key={menu.label}>
+              {!menu?.hide ? (
+                <TouchableOpacity
+                  key={menu.label}
+                  onPress={() => {
+                    menu.label === 'Profile' && !user
+                      ? null
+                      : // @ts-ignore
+                        router.push({
+                          pathname: menu.href,
+                          params: menu.params,
+                        });
+                  }}
+                  className="flex flex-row items-center mb-6">
+                  <menu.icon size={30} stroke="black" />
+                  <Text className="text-black font-normal ml-3 text-[16px]">
+                    {menu.label}
+                  </Text>
+                </TouchableOpacity>
+              ) : null}
+            </Fragment>
           ))}
           <TouchableOpacity
             onPress={sendInvitation}
@@ -114,6 +116,19 @@ export default function Profile() {
           </TouchableOpacity>
         </View>
       </View>
+      {!user && (
+        <View className="justify-center absolute bottom-[3%] w-full px-4">
+          <CustomButton
+            label="Login"
+            onPress={() =>
+              router.push({
+                pathname: '/(auth)/auth/login',
+                params: {canGoBack: 'true'},
+              })
+            }
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
