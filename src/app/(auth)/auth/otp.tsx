@@ -1,14 +1,15 @@
 import {useMutation} from '@tanstack/react-query';
 import {useLocalSearchParams, useRouter} from 'expo-router';
-import React, {useRef, useState} from 'react';
+import React from 'react';
 import {useForm} from 'react-hook-form';
-import {View, Text, SafeAreaView, Image} from 'react-native';
+import {Image, SafeAreaView, Text, View} from 'react-native';
 
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import Container from '../../../components/shared/Container';
 import OTPInput from '../../../components/shared/inputs/OTPInput';
+import {LOCATION_KEY} from '../../../constants';
 import {verifyAccount} from '../../../lib/auth';
-import {getErrorMessage} from '../../../utils/helpers';
+import {getErrorMessage, getFromSecureStore} from '../../../utils/helpers';
 import {toastErrorMessage} from '../../../utils/toast';
 
 export default function OtpScreen() {
@@ -24,8 +25,13 @@ export default function OtpScreen() {
 
   const verifyOtp = (data: {otp: string}) => {
     verifyOtpMutation.mutate(data.otp, {
-      onSuccess() {
-        router.replace('/(main)/Home/home');
+      async onSuccess() {
+        const location = await getFromSecureStore(LOCATION_KEY);
+        if (location) {
+          router.replace('/(main)/Home/home');
+          return;
+        }
+        router.replace('/(main)/location');
       },
       onError(error) {
         toastErrorMessage(getErrorMessage(error));

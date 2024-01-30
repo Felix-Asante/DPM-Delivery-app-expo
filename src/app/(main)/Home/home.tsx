@@ -57,7 +57,7 @@ export default function FeedsScreen() {
     <SafeAreaView className="bg-white">
       <StatusBar barStyle="dark-content" />
       <ScrollView
-        className="pt-5 h-full bg-white"
+        className="pt-8 h-full bg-white"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }

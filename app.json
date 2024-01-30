@@ -4,11 +4,11 @@
     "slug": "dpm-delivery",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.jpeg",
+    "icon": "./assets/images/icon.png",
     "scheme": "dpmdelivery",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/splash.jpeg",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#f15a24"
     },
@@ -21,11 +21,13 @@
       "bundleIdentifier": "com.anonymous.dpmdelivery"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/icon.jpeg",
-        "backgroundColor": "#ffffff"
-      },
+      "icon": "./assets/images/icon.png",
       "package": "com.anonymous.dpmdelivery",
+      "splash": {
+        "image": "./assets/images/splash.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#f15a24"
+      },
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
@@ -35,7 +37,7 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/icon.jpeg"
+      "favicon": "./assets/images/icon.png"
     },
     "plugins": [
       "expo-router",

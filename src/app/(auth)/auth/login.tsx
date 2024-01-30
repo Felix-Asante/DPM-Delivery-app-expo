@@ -16,12 +16,16 @@ import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import Container from '../../../components/shared/Container';
 import PasswordInput from '../../../components/shared/inputs/PasswordInput';
 import Input from '../../../components/shared/inputs/index';
-import {TOKEN_KEY} from '../../../constants';
+import {LOCATION_KEY, TOKEN_KEY} from '../../../constants';
 import Colors from '../../../constants/Colors';
 import {useReactHookForm} from '../../../hooks/useReactHookForm';
 import {login} from '../../../lib/auth';
 import {useAuthStore} from '../../../store/useAuth';
-import {getErrorMessage, saveToSecureStore} from '../../../utils/helpers';
+import {
+  getErrorMessage,
+  getFromSecureStore,
+  saveToSecureStore,
+} from '../../../utils/helpers';
 import {toastErrorMessage} from '../../../utils/toast';
 import {LoginDto, loginValidations} from '../../../validations/auth';
 export default function LoginScreen() {
@@ -40,10 +44,15 @@ export default function LoginScreen() {
 
   const loginUser = (data: LoginDto) => {
     loginMutation.mutate(data, {
-      onSuccess(data) {
+      async onSuccess(data) {
         saveToSecureStore(TOKEN_KEY, data?.accessToken);
         setUser(data?.user);
-        router.replace('/(main)/Home/home');
+        const location = await getFromSecureStore(LOCATION_KEY);
+        if (location) {
+          router.replace('/(main)/Home/home');
+          return;
+        }
+        router.replace('/(main)/location');
       },
       onError(error) {
         toastErrorMessage(getErrorMessage(error));

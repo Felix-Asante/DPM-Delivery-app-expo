@@ -13,6 +13,10 @@
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease"
+      },
+      "env": {
+        "EXPO_PUBLIC_API_URL": "https://www.staging.api.dpmbrand.com/api/v1",
+        "EXPO_PUBLIC_GOOGLE_API_KEY": "AIzaSyBx2kWu7zzYADnCckcSehzkTp5Je5crUbw"
       }
     },
     "preview2": {
