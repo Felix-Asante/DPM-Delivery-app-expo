@@ -17,7 +17,9 @@ export function UseLocation() {
       return;
     }
 
-    const location = await Location.getCurrentPositionAsync({});
+    const location = await Location.getCurrentPositionAsync({
+      accuracy: Location.LocationAccuracy.Highest,
+    });
     const actualLocation = await Location.reverseGeocodeAsync({
       latitude: location.coords.latitude,
       longitude: location.coords.longitude,

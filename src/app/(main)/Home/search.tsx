@@ -14,6 +14,7 @@ import {
 
 import BottomSheet from '../../../components/BottomSheet';
 import IsWithinDeliveryLocation from '../../../components/guards/IsWithinDeliveryLocation';
+import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import ContentCard from '../../../components/shared/cards/ContentCard';
 import Input from '../../../components/shared/inputs';
 import Colors from '../../../constants/Colors';
@@ -83,7 +84,7 @@ export default function SearchScreen() {
 
   return (
     <IsWithinDeliveryLocation>
-      <View className="pt-20 px-3 min-h-full bg-white">
+      <View className="pt-16 px-3 min-h-full bg-white">
         <StatusBar barStyle="dark-content" />
         <View className="flex-row  space-x-5 mb-5">
           <View className="w-[85%]">
@@ -133,9 +134,17 @@ export default function SearchScreen() {
           />
         )}
         <BottomSheet
-          snapPoints={['25%', '90%']}
+          snapPoints={['95%', '90%']}
           open={showFilters}
-          onClose={() => setShowFilters(false)}>
+          onClose={() => setShowFilters(false)}
+          footerComponent={() => (
+            <View className="px-3">
+              <CustomButton
+                label="Apply"
+                onPress={() => setShowFilters(false)}
+              />
+            </View>
+          )}>
           <SearchFilters onClose={() => setShowFilters(false)} />
         </BottomSheet>
       </View>

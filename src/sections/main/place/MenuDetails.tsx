@@ -26,6 +26,7 @@ export default function MenuDetails(props: MenuDetailsProps) {
   );
 
   if (!menu) return null;
+  console.log(menu);
 
   return (
     <View className="h-full">

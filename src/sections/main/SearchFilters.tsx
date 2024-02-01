@@ -28,14 +28,11 @@ export default function Filters({onClose}: Props) {
   return (
     <View className="flex-1 ">
       <View className="flex-row items-center justify-between mb-3.5 py-2 px-4 border-b border-light-200">
-        <TouchableOpacity onPress={onClose}>
+        {/* <TouchableOpacity onPress={onClose}>
           <XIcon size={24} color={Colors.dark.main} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text className="text-lg font-semibold">Filters</Text>
         <View className="flex flex-row items-center">
-          <TouchableOpacity onPress={onClose}>
-            <Text className="text-primary mr-2">Apply</Text>
-          </TouchableOpacity>
           <TouchableOpacity onPress={clearFilters}>
             <Text>Clear</Text>
           </TouchableOpacity>

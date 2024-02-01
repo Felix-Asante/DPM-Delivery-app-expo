@@ -45,7 +45,7 @@ export default function LoginScreen() {
   const loginUser = (data: LoginDto) => {
     loginMutation.mutate(data, {
       async onSuccess(data) {
-        saveToSecureStore(TOKEN_KEY, data?.accessToken);
+        await saveToSecureStore(TOKEN_KEY, data?.accessToken);
         setUser(data?.user);
         const location = await getFromSecureStore(LOCATION_KEY);
         if (location) {

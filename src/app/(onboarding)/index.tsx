@@ -1,6 +1,6 @@
 import {SplashScreen, useRouter} from 'expo-router';
 import React from 'react';
-import {Image, Text, TouchableOpacity, View} from 'react-native';
+import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
 import Swiper from 'react-native-swiper';
 
 import {SKIP_ONBOARDING_KEY} from '../../constants';
@@ -38,12 +38,7 @@ export default function Onboarding() {
 
   return (
     <View className="h-full bg-primary">
-      <View className="bg-white px-2 pt-14 h-[80%] rounded-b-3xl">
-        <TouchableOpacity
-          onPress={skipOnboarding}
-          className="items-end mb-2 pr-3">
-          <Text className="text-dark">Skip</Text>
-        </TouchableOpacity>
+      <View className="bg-white px-2 pt-14 h-[80%] rounded-b-3xl relative">
         <Swiper
           showsButtons={false}
           dotColor={Colors.primary[100]}
@@ -61,6 +56,11 @@ export default function Onboarding() {
             </View>
           ))}
         </Swiper>
+        <Pressable
+          onPress={skipOnboarding}
+          className="absolute bottom-[8%] z-10 my-2 left-[47%]">
+          <Text className="text-primary font-semibold">{'Skip ->'}</Text>
+        </Pressable>
       </View>
       <View className="mt-10 px-4 h-full">
         <TouchableOpacity

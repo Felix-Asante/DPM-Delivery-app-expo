@@ -1,4 +1,4 @@
-import {
+import GorhomBottomSheet, {
   BottomSheetFooterProps,
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -6,6 +6,8 @@ import {
 } from '@gorhom/bottom-sheet';
 import React, {ReactNode, useCallback, useEffect, useRef} from 'react';
 import {View} from 'react-native';
+
+import {mergeClassNames} from '../utils/helpers';
 
 interface BottomSheetProps {
   snapPoints: string[];
@@ -16,10 +18,10 @@ interface BottomSheetProps {
 }
 export default function BottomSheet(props: BottomSheetProps) {
   const {snapPoints, open, onClose, footerComponent, children} = props;
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const bottomSheetModalRef = useRef<GorhomBottomSheet>(null);
 
   const openSheet = useCallback(() => {
-    bottomSheetModalRef.current?.present();
+    bottomSheetModalRef.current?.snapToIndex(1);
   }, []);
   const closeSheet = useCallback(() => {
     onClose();
@@ -36,23 +38,22 @@ export default function BottomSheet(props: BottomSheetProps) {
     } else {
       closeSheet();
     }
+    // openSheet();
   }, [open]);
 
   return (
-    <BottomSheetModalProvider>
-      <BottomSheetModal
-        ref={bottomSheetModalRef}
-        index={1}
-        snapPoints={snapPoints}
-        onChange={handleSheetChanges}
-        onDismiss={closeSheet}
-        footerComponent={footerComponent}
-        // backdropComponent={backdropProps => (
-        //   <View className="bg-dark/10 w-full flex-1" {...backdropProps} />
-        // )}
-      >
-        <BottomSheetScrollView>{children}</BottomSheetScrollView>
-      </BottomSheetModal>
-    </BottomSheetModalProvider>
+    <GorhomBottomSheet
+      ref={bottomSheetModalRef}
+      index={-1}
+      snapPoints={snapPoints}
+      onChange={handleSheetChanges}
+      // onDismiss={closeSheet}
+      footerComponent={footerComponent}
+      // backdropComponent={backdropProps => (
+      //   <View className="bg-dark/10 w-full flex-1" {...backdropProps} />
+      // )}
+    >
+      <BottomSheetScrollView>{children}</BottomSheetScrollView>
+    </GorhomBottomSheet>
   );
 }

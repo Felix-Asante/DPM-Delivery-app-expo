@@ -126,8 +126,9 @@ export default function PlacePage() {
         />
       </View>
     );
+
   return (
-    <View className="flex-1 h-full bg-white">
+    <View className="h-full bg-white">
       <ScrollView>
         <View className="h-48 w-full">
           <ImageBackground

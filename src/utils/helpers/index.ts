@@ -21,8 +21,12 @@ export async function saveToSecureStore(key: string, value: any) {
 }
 
 export async function getFromSecureStore(key: string) {
-  const result = await SecureStore.getItemAsync(key);
-  return result;
+  try {
+    const result = await SecureStore.getItemAsync(key);
+    return result;
+  } catch (error) {
+    console.log('store error', error);
+  }
 }
 export async function deleteFromSecureStore(key: string) {
   await SecureStore.deleteItemAsync(key);
@@ -78,5 +82,11 @@ export async function share(url: string, options: Sharing.SharingOptions) {
 export function getInitials(text: string) {
   if (!text) return '';
   const [first, last] = text.split(' ');
+  if (!last || !first) return text?.charAt(0);
   return `${first.charAt(0).toUpperCase()} ${last.charAt(0).toUpperCase()}`;
+}
+
+export function shorten(text: string, length = 21) {
+  const actualLength = text?.length;
+  return `${text?.substring(0, length)} ${actualLength > 21 && '...'}`;
 }

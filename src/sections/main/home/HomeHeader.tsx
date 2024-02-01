@@ -6,6 +6,7 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import Colors from '../../../constants/Colors';
 import {useGlobalStore} from '../../../store/global';
 import {useCart} from '../../../store/useCart';
+import {shorten} from '../../../utils/helpers';
 
 export default function AppHeader() {
   const cart = useCart(state => state.cart);
@@ -21,14 +22,12 @@ export default function AppHeader() {
             onPress={() => router.push('/(main)/location')}
             className="flex flex-row items-center justify-between gap-2">
             <Text className="font-bold  text-dark ">
-              {userLocation?.main_text}
+              {shorten(userLocation?.main_text ?? '')}
             </Text>
             <LocateFixed size={18} color={Colors.primary.main} />
           </TouchableOpacity>
         </View>
-        <Link
-          href="/(main)/cart"
-          className=" flex items-center justify-center border border-light-200">
+        <Link href="/(main)/cart" className=" flex items-center justify-center">
           <View className="relative">
             <ShoppingBag color={Colors.dark.main} size={23} />
             {cart.length > 0 && (
