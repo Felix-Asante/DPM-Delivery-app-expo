@@ -44,7 +44,7 @@ export default function LocationPicker() {
     };
     setUserLocation(location);
     await saveToSecureStore(LOCATION_KEY, JSON.stringify(location));
-    await new Promise(resolve => setTimeout(() => resolve(1), 2000));
+    await new Promise(resolve => setTimeout(() => resolve(1), 200));
     if (router.canGoBack()) {
       router.back();
     } else {

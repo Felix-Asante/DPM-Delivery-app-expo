@@ -1,13 +1,8 @@
 import GorhomBottomSheet, {
   BottomSheetFooterProps,
-  BottomSheetModal,
-  BottomSheetModalProvider,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet';
 import React, {ReactNode, useCallback, useEffect, useRef} from 'react';
-import {View} from 'react-native';
-
-import {mergeClassNames} from '../utils/helpers';
 
 interface BottomSheetProps {
   snapPoints: string[];
