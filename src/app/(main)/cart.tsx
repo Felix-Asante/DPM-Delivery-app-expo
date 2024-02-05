@@ -52,13 +52,13 @@ export default function CartScreen() {
   };
 
   const organizeCartItems = (transactionId: string) => {
-    const places = cart.map(booking => booking.place);
-    const products = cart.map(booking => ({
-      product: booking?.id,
-      price: booking.price,
-      quantity: booking.quantity,
-      place: booking.place,
-    }));
+    const places = cart?.place!;
+    const products = {
+      product: cart?.id!,
+      price: cart?.price!,
+      quantity: cart?.quantity!,
+      place: cart?.place!,
+    };
 
     return {
       delivery_address: 'fes', //fix address
@@ -93,7 +93,7 @@ export default function CartScreen() {
   };
 
   return (
-    <View className="h-full px-3 pt-14">
+    <View className="h-full px-3 pt-14 bg-white">
       <ScrollView className="h-full" showsVerticalScrollIndicator={false}>
         <View className="flex flex-row items-center gap-2 mb-5">
           <TouchableOpacity onPress={() => router.back()}>
@@ -103,15 +103,13 @@ export default function CartScreen() {
             Checkout Orders
           </Text>
         </View>
-        {cart.length > 0 ? (
+        {cart !== null ? (
           <View>
             <View>
               <Text className="text-lg text-black mb-2.5 font-bold">
                 Your Order
               </Text>
-              {cart.map(p => (
-                <CartItem key={p.id} product={p} />
-              ))}
+              <CartItem product={cart} />
             </View>
             <View className="mt-3">
               <Text className="text-lg text-black mb-2 font-bold">

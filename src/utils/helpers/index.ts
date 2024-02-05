@@ -88,5 +88,17 @@ export function getInitials(text: string) {
 
 export function shorten(text: string, length = 21) {
   const actualLength = text?.length;
-  return `${text?.substring(0, length)} ${actualLength > 21 && '...'}`;
+  return `${text?.substring(0, length)} ${actualLength > 21 ? '...' : ''}`;
+}
+
+export function formatNumber(value: number) {
+  const formatter = new Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    compactDisplay: 'short',
+  });
+  if (!value) return 0;
+  return formatter.format(value);
+}
+export function pluralize(value: string, total: number, pluralForm = '') {
+  return total > 1 ? (pluralForm ? pluralForm : `${value}s`) : value;
 }

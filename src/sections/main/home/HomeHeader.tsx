@@ -30,9 +30,9 @@ export default function AppHeader() {
         <Link href="/(main)/cart" className=" flex items-center justify-center">
           <View className="relative">
             <ShoppingBag color={Colors.dark.main} size={23} />
-            {cart.length > 0 && (
+            {cart !== null ? (
               <View className="absolute -top-[3px] right-0 bg-primary w-[6px] h-[6px] rounded-full" />
-            )}
+            ) : null}
           </View>
         </Link>
       </View>

@@ -14,6 +14,8 @@ export interface Place {
   mainImage: string;
   category: Category;
   averagePrice: number;
+  rating: number;
+  total_reviews: number;
   deliveryFee?: number;
   minPrepTime?: number;
   maxPrepTime?: number;

@@ -38,8 +38,10 @@ import {useCart} from '../../../store/useCart';
 import {CartItem} from '../../../types/booking';
 import {PlaceMenu, PlaceProducts} from '../../../types/place';
 import {
+  formatNumber,
   getErrorMessage,
   getFromSecureStore,
+  pluralize,
   share,
 } from '../../../utils/helpers';
 import {calculateDistance} from '../../../utils/helpers/location';
@@ -171,8 +173,13 @@ export default function PlacePage() {
               <View className="flex-row items-center py-1.5">
                 <Star fill="orange" stroke="orange" />
                 <View className="ml-2">
-                  <Text className="text-black text-[16px]">4.8</Text>
-                  <Text className="text-light text-[14px] ">48k reviews</Text>
+                  <Text className="text-black text-[16px]">
+                    {formatNumber(place?.total_reviews || 0)}{' '}
+                  </Text>
+                  <Text className="text-light text-[14px] ">
+                    {place?.total_reviews}{' '}
+                    {pluralize('review', place?.total_reviews!)}
+                  </Text>
                 </View>
               </View>
               <ChevronRight size={20} color={Colors.dark.main} />
@@ -218,11 +225,7 @@ export default function PlacePage() {
                     services={service.products}
                     key={i}
                     place={id}
-                    deliveryFee={
-                      cart.some(c => service.products?.some(p => p.id === c.id))
-                        ? 0
-                        : place?.deliveryFee
-                    }
+                    deliveryFee={place?.deliveryFee ?? 0}
                     onSelect={s => setSelectedService(s)}
                   />
                 ))

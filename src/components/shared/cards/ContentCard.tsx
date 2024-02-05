@@ -103,10 +103,14 @@ export default function ContentCard({
             {place?.name.length > TOTAL_CHARACTERS ? '...' : ''}
           </Text>
         </TouchableOpacity>
-        <View className="flex flex-row items-center gap-x-1">
-          <Star size={15} color={Colors.dark.main} />
-          <Text className="font-medium text-sm text-dark">4.5</Text>
-        </View>
+        {place?.rating > 0 ? (
+          <View className="flex flex-row items-center gap-x-1">
+            <Star size={15} color={Colors.dark.main} />
+            <Text className="font-medium text-sm text-dark">
+              {place?.rating}
+            </Text>
+          </View>
+        ) : null}
       </TouchableOpacity>
       <View className="flex flex-row items-center justify-between gap-x-3">
         <View className="flex flex-row items-center gap-x-2">

@@ -1,14 +1,21 @@
 import {Tabs, useRouter} from 'expo-router';
 import {FileText, Home, Search, User2} from 'lucide-react-native';
 import React, {Fragment} from 'react';
-import {Pressable, View} from 'react-native';
+import {Dimensions, Pressable, View} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import Colors from '../../../constants/Colors';
 import {useCart} from '../../../store/useCart';
+import {shorten} from '../../../utils/helpers';
+
+const screen = Dimensions.get('screen');
+
 export default function AppHomeLayout() {
   const {cart} = useCart();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
+
   return (
     <View className="relative h-full">
       <Tabs>
@@ -73,16 +80,16 @@ export default function AppHomeLayout() {
           }}
         />
       </Tabs>
-      {cart?.length > 0 && (
-        <Pressable className="w-full bg-white p-4 border-b border-light-200 absolute bottom-[7.2%]">
+      {cart !== null ? (
+        <Pressable
+          className="w-full bg-white p-4 border-b border-light-200 absolute"
+          style={{bottom: insets.bottom + 48}}>
           <CustomButton
-            label={`Checkout ${cart.length} ${
-              cart.length > 1 ? 'items' : 'item'
-            }`}
+            label={`Checkout ${shorten(cart?.name, 25)}`}
             onPress={() => router.push('/(main)/cart')}
           />
         </Pressable>
-      )}
+      ) : null}
     </View>
   );
 }

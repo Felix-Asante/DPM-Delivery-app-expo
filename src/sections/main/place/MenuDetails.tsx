@@ -21,9 +21,7 @@ export default function MenuDetails(props: MenuDetailsProps) {
   const {menu, onClose} = props;
 
   // quantity of the selected menu already in cart
-  const [count, setCount] = useState(
-    cart.filter(c => c.id === menu?.id)[0]?.quantity ?? 1,
-  );
+  const [count, setCount] = useState(cart?.quantity ?? 1);
 
   if (!menu) return null;
   console.log(menu);

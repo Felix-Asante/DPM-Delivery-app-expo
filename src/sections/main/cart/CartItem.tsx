@@ -5,11 +5,8 @@ import Colors from '../../../constants/Colors';
 import {Cart, useCart} from '../../../store/useCart';
 
 export default function CartItem({product}: {product: Cart}) {
-  const {addToCart, removeFromCart} = useCart(state => state);
+  const {addToCart, clearCart} = useCart(state => state);
 
-  const handleRemove = () => {
-    removeFromCart(product.id);
-  };
   const confirmRemove = () => {
     Alert.alert(
       'Delete item',
@@ -21,7 +18,7 @@ export default function CartItem({product}: {product: Cart}) {
         },
         {
           text: 'Remove',
-          onPress: handleRemove,
+          onPress: clearCart,
         },
       ],
       {cancelable: true},
@@ -32,7 +29,7 @@ export default function CartItem({product}: {product: Cart}) {
     if (product.quantity <= 1) {
       confirmRemove();
     } else {
-      removeFromCart(product.id);
+      clearCart();
     }
   };
   return (
