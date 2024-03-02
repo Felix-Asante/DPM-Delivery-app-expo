@@ -7,24 +7,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import {Snackbar, SnackbarRef} from 'react-native-magnus';
 
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
+import Colors from '../../../constants/Colors';
 import {useCart} from '../../../store/useCart';
 import {CartItem} from '../../../types/booking';
+import {toastSuccessMessage} from '../../../utils/toast';
 
 interface MenuDetailsProps {
   menu: CartItem | null;
   onClose: () => void;
 }
 export default function MenuDetails(props: MenuDetailsProps) {
-  const {addToCart, cart} = useCart();
+  const {addToCart, cart, clearCart} = useCart();
   const {menu, onClose} = props;
+  const snackbarRef = React.createRef<any>();
 
   // quantity of the selected menu already in cart
   const [count, setCount] = useState(cart?.quantity ?? 1);
 
   if (!menu) return null;
-  console.log(menu);
 
   return (
     <View className="h-full">
@@ -51,10 +54,21 @@ export default function MenuDetails(props: MenuDetailsProps) {
         <View className="mt-3">
           <View className="items-center flex-row justify-center mt-8">
             <Pressable
-              className={`${count > 1 ? 'bg-primary-100' : 'bg-light-200'}
+              className={`bg-primary-100
                  w-12 h-12 rounded-full items-center justify-center`}
               onPress={() =>
-                setCount(prevCount => (prevCount > 1 ? prevCount - 1 : 1))
+                setCount(prevCount => {
+                  if (prevCount > 1) {
+                    return prevCount - 1;
+                  }
+                  if (menu.id === cart?.id) {
+                    clearCart();
+                    snackbarRef.current.show(
+                      `${menu?.name} has been removed from cart`,
+                    );
+                  }
+                  return 1;
+                })
               }>
               <Text className="text-primary font-medium text-4xl">-</Text>
             </Pressable>
@@ -80,6 +94,7 @@ export default function MenuDetails(props: MenuDetailsProps) {
           }}
         />
       </View>
+      <Snackbar ref={snackbarRef} bg="light200" color={Colors.primary.main} />
     </View>
   );
 }

@@ -101,6 +101,12 @@ function RootLayoutNav() {
         <Stack.Screen name="(main)/Home" options={{headerShown: false}} />
         <Stack.Screen name="(onboarding)" options={{headerShown: false}} />
         <Stack.Screen name="(auth)" options={{headerShown: false}} />
+        <Stack.Screen
+          name="(main)/addReview"
+          options={{
+            presentation: 'modal',
+          }}
+        />
       </Stack>
     </Providers>
   );

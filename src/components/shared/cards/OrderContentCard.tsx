@@ -1,10 +1,9 @@
+import {useRouter} from 'expo-router';
 import React, {useState} from 'react';
-import {View, Text, Pressable, TouchableOpacity, Image} from 'react-native';
+import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
 
 import {BookingStatus} from '../../../constants/enums';
-import OrderSummary from '../../../sections/main/orders/OrderSummary';
 import {Booking} from '../../../types/booking';
-import BottomSheet from '../../BottomSheet';
 
 interface Props {
   booking: Booking;
@@ -87,9 +86,12 @@ function ActiveActionButton() {
   );
 }
 function CompletedActionButton() {
+  const router = useRouter();
   return (
     <View className="flex-row justify-start gap-x-5 pt-3 pb-2 border-t border-light-200">
-      <TouchableOpacity className="border-2 border-primary rounded-md py-1 px-2 min-w-[120px]">
+      <TouchableOpacity
+        onPress={() => router.push('/(main)/addReview')}
+        className="border-2 border-primary rounded-md py-1 px-2 min-w-[120px]">
         <Text className="text-primary text-center font-medium">
           Leave a Review
         </Text>

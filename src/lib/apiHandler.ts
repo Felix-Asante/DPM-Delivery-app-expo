@@ -1,4 +1,4 @@
-import axios, {AxiosResponse, InternalAxiosRequestConfig} from 'axios';
+import axios, {InternalAxiosRequestConfig} from 'axios';
 
 import {TOKEN_KEY} from '../constants';
 import {apiConfig} from '../utils/apiConfig';
@@ -34,6 +34,7 @@ type ApiHandler = {
 export const makeApiRequest = async <T>(config: ApiHandler): Promise<T> => {
   const {endpoint, method, data} = config;
   try {
+    console.log(endpoint);
     const response = await axiosInstance({
       url: endpoint,
       method,
@@ -42,6 +43,7 @@ export const makeApiRequest = async <T>(config: ApiHandler): Promise<T> => {
 
     return response.data as T;
   } catch (error) {
+    console.log(error);
     throw error;
   }
 };

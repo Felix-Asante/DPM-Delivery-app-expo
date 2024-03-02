@@ -2,9 +2,10 @@ import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {View, Text, Image, TouchableOpacity} from 'react-native';
 
+import {useCart} from '../../../store/useCart';
 import {CartItem} from '../../../types/booking';
 import {PlaceProducts} from '../../../types/place';
-import {calculateDiscount} from '../../../utils/helpers';
+import {calculateDiscount, mergeClassNames} from '../../../utils/helpers';
 
 interface Props {
   title?: string;
@@ -20,10 +21,15 @@ export default function Menu({
   place,
   onSelect,
 }: Props) {
+  const {cart} = useCart();
+
+  const isSelected = (service: PlaceProducts) => cart?.id === service?.id;
   return (
     <View>
-      {title !== 'UNCATEGORIZED' && (
-        <Text className=" text-black text-base font-semibold">{title}</Text>
+      {title !== 'UNCATEGORIZED' && services?.length > 0 && (
+        <Text className=" text-black text-base font-semibold mb-2">
+          {title}
+        </Text>
       )}
       {/* OPTIMIZE WITH FLAT LIST */}
       {services.map(service => {
@@ -39,7 +45,10 @@ export default function Menu({
             onPress={() => {
               onSelect({...service, deliveryFee, price, place});
             }}
-            className="border-b border-light-200 py-2 mb-3"
+            className={mergeClassNames(
+              'border-b border-light-200 py-2 mb-3',
+              isSelected(service) && 'border-l-2 border-l-primary',
+            )}
             key={service.id}>
             <View className="flex flex-row items-center">
               <View className="ml-4 flex-1">

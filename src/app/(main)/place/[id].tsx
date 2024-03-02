@@ -18,6 +18,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
+import {Modal} from 'react-native-magnus';
 
 import BottomSheet from '../../../components/BottomSheet';
 import ErrorMessage from '../../../components/shared/errors/ErrorMessage';
@@ -239,7 +240,13 @@ export default function PlacePage() {
 
         {/* </View> */}
       </ScrollView>
-      <BottomSheet
+      <Modal isVisible={selectedService !== null}>
+        <MenuDetails
+          menu={selectedService}
+          onClose={() => setSelectedService(null)}
+        />
+      </Modal>
+      {/* <BottomSheet
         open={selectedService !== null}
         onClose={() => setSelectedService(null)}
         snapPoints={['50%', '90%']}>
@@ -247,7 +254,7 @@ export default function PlacePage() {
           menu={selectedService}
           onClose={() => setSelectedService(null)}
         />
-      </BottomSheet>
+      </BottomSheet> */}
     </View>
   );
 }
