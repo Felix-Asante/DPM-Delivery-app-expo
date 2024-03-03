@@ -23,7 +23,7 @@ export interface Booking {
   reference_code: string;
   status: BookingStatus;
   user: User;
-  place: Place[];
+  place: Place;
   services: BookedServices[];
 }
 

@@ -18,18 +18,15 @@ export default function OrderContentCard({booking, onPress}: Props) {
           onPress={() => onPress(booking)}
           className="flex flex-row items-start h-16 mb-3">
           <Image
-            source={{uri: booking?.place?.[0]?.mainImage}}
+            source={{uri: booking?.place?.mainImage}}
             className="rounded-lg w-[70px] h-[90%] object-cover"
           />
           <View className="ml-3 flex-1">
             <View className="flex flex-row justify-between items-start">
-              {booking?.place?.length <= 1 ? (
-                <Text className="font-medium text-dark capitalize">
-                  {booking?.place?.[0]?.name}
-                </Text>
-              ) : (
-                <Text />
-              )}
+              <Text className="font-medium text-dark capitalize">
+                {booking?.place?.name}
+              </Text>
+
               <Text className="font-bold text-primary">
                 GH₵ {booking?.total_amount}{' '}
               </Text>
@@ -61,12 +58,6 @@ export default function OrderContentCard({booking, onPress}: Props) {
           <CancelledActionButton />
         )}
       </View>
-      {/* <BottomSheet
-        snapPoints={['25%', '80%']}
-        open={showSummary}
-        onClose={() => setShowSummary(false)}>
-        <OrderSummary booking={booking} onClose={() => setShowSummary(false)} />
-      </BottomSheet> */}
     </View>
   );
 }
