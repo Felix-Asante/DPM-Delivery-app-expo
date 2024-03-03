@@ -43,7 +43,6 @@ export const makeApiRequest = async <T>(config: ApiHandler): Promise<T> => {
 
     return response.data as T;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };

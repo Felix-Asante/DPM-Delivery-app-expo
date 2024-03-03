@@ -225,7 +225,7 @@ export default function PlacePage() {
                     title={service.name}
                     services={service.products}
                     key={i}
-                    place={id}
+                    place={place!}
                     deliveryFee={place?.deliveryFee ?? 0}
                     onSelect={s => setSelectedService(s)}
                   />
@@ -246,15 +246,6 @@ export default function PlacePage() {
           onClose={() => setSelectedService(null)}
         />
       </Modal>
-      {/* <BottomSheet
-        open={selectedService !== null}
-        onClose={() => setSelectedService(null)}
-        snapPoints={['50%', '90%']}>
-        <MenuDetails
-          menu={selectedService}
-          onClose={() => setSelectedService(null)}
-        />
-      </BottomSheet> */}
     </View>
   );
 }

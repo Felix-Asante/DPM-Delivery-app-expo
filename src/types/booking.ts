@@ -42,7 +42,7 @@ export interface Sales {
 
 export interface CartItem extends PlaceProducts {
   deliveryFee: number;
-  place: string;
+  place: Place;
   price: number;
 }
 
@@ -54,7 +54,7 @@ export interface BookingDto {
     quantity: number;
     price: number;
     place: string;
-  };
+  }[];
   rider_tip: number;
   delivery_fee: number;
   delivery_address: string;

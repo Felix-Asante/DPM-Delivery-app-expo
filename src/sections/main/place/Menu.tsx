@@ -4,12 +4,12 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 
 import {useCart} from '../../../store/useCart';
 import {CartItem} from '../../../types/booking';
-import {PlaceProducts} from '../../../types/place';
+import {Place, PlaceProducts} from '../../../types/place';
 import {calculateDiscount, mergeClassNames} from '../../../utils/helpers';
 
 interface Props {
   title?: string;
-  place: string;
+  place: Place;
   services: PlaceProducts[];
   deliveryFee?: number;
   onSelect: (service: CartItem) => void;
@@ -23,7 +23,9 @@ export default function Menu({
 }: Props) {
   const {cart} = useCart();
 
-  const isSelected = (service: PlaceProducts) => cart?.id === service?.id;
+  const isSelected = (service: PlaceProducts) =>
+    cart?.services.some(item => item?.id === service?.id);
+
   return (
     <View>
       {title !== 'UNCATEGORIZED' && services?.length > 0 && (

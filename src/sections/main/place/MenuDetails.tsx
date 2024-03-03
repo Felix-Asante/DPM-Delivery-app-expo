@@ -1,19 +1,19 @@
 import {XIcon} from 'lucide-react-native';
 import React, {useState} from 'react';
 import {
+  Alert,
   ImageBackground,
   Pressable,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Snackbar, SnackbarRef} from 'react-native-magnus';
+import {Snackbar} from 'react-native-magnus';
 
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import Colors from '../../../constants/Colors';
 import {useCart} from '../../../store/useCart';
 import {CartItem} from '../../../types/booking';
-import {toastSuccessMessage} from '../../../utils/toast';
 
 interface MenuDetailsProps {
   menu: CartItem | null;
@@ -25,9 +25,60 @@ export default function MenuDetails(props: MenuDetailsProps) {
   const snackbarRef = React.createRef<any>();
 
   // quantity of the selected menu already in cart
-  const [count, setCount] = useState(cart?.quantity ?? 1);
+  const [count, setCount] = useState(
+    () =>
+      cart?.services?.filter(item => item?.id === menu?.id)?.[0]?.quantity ?? 1,
+  );
 
   if (!menu) return null;
+
+  const addServiceToCart = () => {
+    const {deliveryFee, place, ...service} = menu;
+    if (cart?.place?.id !== menu?.place?.id && cart !== null) {
+      Alert.alert(
+        'Confirm action',
+        'Your cart can only contain orders from one store',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'Replace with old item',
+            onPress: () => {
+              addToCart({
+                quantity: 0,
+                deliveryFee,
+                place,
+                services: [{...service, quantity: count}],
+              });
+              onClose();
+            },
+          },
+        ],
+      );
+    } else {
+      let services = cart?.services;
+      const newService = {...service, quantity: count};
+
+      if (services && services?.length > 0) {
+        const existingServiceIndex = services.findIndex(
+          service => service.id === menu.id,
+        );
+        if (existingServiceIndex < 0) {
+          services = [...services, newService];
+        } else {
+          services[existingServiceIndex] = newService;
+        }
+      } else {
+        services = [{...newService}];
+      }
+
+      addToCart({quantity: 0, deliveryFee, place, services});
+      onClose();
+    }
+  };
 
   return (
     <View className="h-full">
@@ -61,7 +112,7 @@ export default function MenuDetails(props: MenuDetailsProps) {
                   if (prevCount > 1) {
                     return prevCount - 1;
                   }
-                  if (menu.id === cart?.id) {
+                  if (cart?.services.some(service => service?.id === menu.id)) {
                     clearCart();
                     snackbarRef.current.show(
                       `${menu?.name} has been removed from cart`,
@@ -88,10 +139,7 @@ export default function MenuDetails(props: MenuDetailsProps) {
       <View className="items-center justify-center mt-14 px-12">
         <CustomButton
           label={`Add ${count} for GH₵ ${count * menu?.price}`}
-          onPress={() => {
-            addToCart({...menu, quantity: count});
-            onClose();
-          }}
+          onPress={addServiceToCart}
         />
       </View>
       <Snackbar ref={snackbarRef} bg="light200" color={Colors.primary.main} />

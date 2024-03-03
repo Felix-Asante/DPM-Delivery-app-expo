@@ -1,32 +1,39 @@
 import {create} from 'zustand';
 
-import {PlaceProducts} from '../types/place';
+import {Place, PlaceProducts} from '../types/place';
 
-export interface Cart extends PlaceProducts {
+interface Services extends PlaceProducts {
+  quantity: number;
+}
+export interface Cart {
   quantity: number;
   deliveryFee?: number;
-  place: string;
+  place: Place;
+  services: Services[];
 }
 interface Store {
   cart: Cart | null;
   addToCart: (cart: Cart) => void;
   totalCost: number;
   deliveryCost: number;
-  calculateTotalCost: (cart: Cart[]) => number;
+  calculateTotalCost: (cart: Cart) => number;
   clearCart: () => void;
 }
 
-export const useCart = create<Store>(set => ({
+export const useCart = create<Store>((set, get) => ({
   cart: null,
   totalCost: 0,
   deliveryCost: 0,
   calculateTotalCost: cart => {
-    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
+    return cart.services.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0,
+    );
   },
   addToCart: (product: Cart) => {
     set({
       cart: product,
-      totalCost: product.price * product.quantity,
+      totalCost: get().calculateTotalCost(product),
       deliveryCost: product.deliveryFee,
     });
   },
