@@ -14,3 +14,10 @@ export const phoneValidation = z.object({
 export interface IPhone {
   phone: z.infer<typeof phoneValidation>;
 }
+
+export const ratingValidation = z.object({
+  comment: z.string().optional(),
+  rating: z.number(),
+});
+
+export type ratingDto = z.infer<typeof ratingValidation>;

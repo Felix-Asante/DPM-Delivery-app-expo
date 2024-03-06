@@ -8,6 +8,7 @@ import {mergeClassNames} from '../../../utils/helpers';
 export interface InputProps extends TextInputProps {
   label?: string;
   className?: string;
+  inputClassName?: string;
   defaultValue?: string;
   name: string;
   control: any;
@@ -23,6 +24,7 @@ const Input = forwardRef(function Input(props: InputProps, ref: any) {
     endContent,
     control,
     className,
+    inputClassName,
     ...rest
   } = props;
   const {field, fieldState} = useController({
@@ -39,6 +41,7 @@ const Input = forwardRef(function Input(props: InputProps, ref: any) {
           'bg-light-100 text-light border-2 border-light/20  px-2.5 py-1 h-[53px] rounded-lg relative ',
           !rest.editable && 'bg-gray-200',
           focused && 'bg-primary-100/10 text-dark  border-primary',
+          inputClassName,
         )}>
         <View className="absolute top-[30%] left-2">{startContent}</View>
         <TextInput

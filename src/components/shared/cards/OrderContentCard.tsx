@@ -1,8 +1,10 @@
 import {useRouter} from 'expo-router';
 import React, {useState} from 'react';
 import {Image, Pressable, Text, TouchableOpacity, View} from 'react-native';
+import {Modal} from 'react-native-magnus';
 
 import {BookingStatus} from '../../../constants/enums';
+import AddReviewForm from '../../../sections/main/orders/AddReviewForm';
 import {Booking} from '../../../types/booking';
 
 interface Props {
@@ -10,7 +12,7 @@ interface Props {
   onPress: (data: Booking) => void;
 }
 export default function OrderContentCard({booking, onPress}: Props) {
-  const [showSummary, setShowSummary] = useState(false);
+  const [showReviewModal, setShowReviewModal] = useState(false);
   return (
     <View>
       <View className="bg-light-100 rounded-xl p-2 mb-3">
@@ -53,11 +55,17 @@ export default function OrderContentCard({booking, onPress}: Props) {
         {booking?.status?.label === BookingStatus.PENDING ? (
           <ActiveActionButton />
         ) : booking?.status?.label === BookingStatus.CONFIRMED ? (
-          <CompletedActionButton />
+          <CompletedActionButton addReview={() => setShowReviewModal(true)} />
         ) : (
           <CancelledActionButton />
         )}
       </View>
+      <Modal isVisible={showReviewModal} h="50%">
+        <AddReviewForm
+          bookingId={booking?.id}
+          onClose={() => setShowReviewModal(false)}
+        />
+      </Modal>
     </View>
   );
 }
@@ -76,12 +84,17 @@ function ActiveActionButton() {
     </View>
   );
 }
-function CompletedActionButton() {
+
+interface CompleteButtonsProps {
+  addReview: () => void;
+}
+function CompletedActionButton({addReview}: CompleteButtonsProps) {
   const router = useRouter();
+
   return (
     <View className="flex-row justify-start gap-x-5 pt-3 pb-2 border-t border-light-200">
       <TouchableOpacity
-        onPress={() => router.push('/(main)/addReview')}
+        onPress={addReview}
         className="border-2 border-primary rounded-md py-1 px-2 min-w-[120px]">
         <Text className="text-primary text-center font-medium">
           Leave a Review

@@ -12,7 +12,7 @@ export function toastErrorMessage(message: string) {
 }
 export function toastSuccessMessage(message: string) {
   Burnt.toast({
-    title: '',
+    title: message,
     preset: 'done',
     message,
     haptic: 'success',

@@ -34,6 +34,7 @@ export const apiConfig = {
   bookings: {
     root: () => `bookings`,
     mine: (query?: Query) => `users/bookings${toQuery(query ?? {})}`,
+    rate: (bookingId: string) => `bookings/${bookingId}/rate`,
   },
   offers: {
     root: () => `/offers`,
