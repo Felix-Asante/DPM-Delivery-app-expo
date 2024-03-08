@@ -24,6 +24,8 @@ export const apiConfig = {
     like: (id: string) => `/places/${id}/like`,
     dislike: (id: string) => `/places/${id}/dislike`,
     with_offers: () => `/offers/place-offers`,
+    ratings: (id: string, query: Query) =>
+      `/places/${id}/ratings${toQuery(query)}`,
     popular: (query?: Query) =>
       `/places/popular/locations${toQuery(query ?? {})}`,
     search: (query?: Query) => `places/search${toQuery(query ?? {})}`,

@@ -1,5 +1,5 @@
 import {makeApiRequest} from './apiHandler';
-import {Likes, Query} from '../types';
+import {Likes, PaginationMetaData, Query, Review} from '../types';
 import {Place, PlaceMenu} from '../types/place';
 import {apiConfig} from '../utils/apiConfig';
 
@@ -33,5 +33,18 @@ export const searchPlaces = (query: Query): Promise<Place[]> => {
 };
 export const getPlacesWithOffers = (): Promise<Place[]> => {
   const endpoint = apiConfig.places.with_offers();
+  return makeApiRequest({endpoint, method: 'get'});
+};
+
+interface Ratings {
+  items: Review[];
+  meta: PaginationMetaData;
+}
+export const getPlaceRating = (
+  placeId: string,
+  page: number,
+): Promise<Ratings> => {
+  const endpoint = apiConfig.places.ratings(placeId, {page});
+  console.log(endpoint);
   return makeApiRequest({endpoint, method: 'get'});
 };

@@ -26,7 +26,7 @@ export default function CustomButton(props: Button) {
       onPress={!disabled && onPress && !loading ? onPress : undefined}
       className={mergeClassNames(
         'bg-primary p-3 rounded-md w-full',
-        (disabled || loading) && 'bg-light',
+        disabled && 'bg-light',
         loading && 'py-3.5',
         className,
       )}>

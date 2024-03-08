@@ -1,4 +1,5 @@
 import {User} from './auth';
+import {Booking} from './booking';
 import {Place} from './place';
 
 export type Status =
@@ -33,4 +34,24 @@ export interface UserLocation {
   lng?: number;
   reference: string;
   place_id: string;
+}
+
+export interface Review {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt: string | null;
+  comment: string;
+  rating: number;
+  date: string;
+  user: User;
+  booking: Booking;
+}
+
+export interface PaginationMetaData {
+  totalItems: number;
+  itemCount: number;
+  itemsPerPage: number;
+  totalPages: number;
+  currentPage: number;
 }

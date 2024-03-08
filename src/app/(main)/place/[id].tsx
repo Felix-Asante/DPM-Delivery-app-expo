@@ -11,19 +11,17 @@ import {
 } from 'lucide-react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {
-  View,
-  Text,
   ImageBackground,
   Pressable,
-  TouchableOpacity,
   ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import {Modal} from 'react-native-magnus';
 
-import BottomSheet from '../../../components/BottomSheet';
 import ErrorMessage from '../../../components/shared/errors/ErrorMessage';
 import ServicesSkeleton from '../../../components/shared/skeletons/ServicesSkeleton';
-import {TOKEN_KEY} from '../../../constants';
 import Colors from '../../../constants/Colors';
 import {
   disLikePlace,
@@ -37,11 +35,9 @@ import {useGlobalStore} from '../../../store/global';
 import {useAuthStore} from '../../../store/useAuth';
 import {useCart} from '../../../store/useCart';
 import {CartItem} from '../../../types/booking';
-import {PlaceMenu, PlaceProducts} from '../../../types/place';
 import {
   formatNumber,
   getErrorMessage,
-  getFromSecureStore,
   pluralize,
   share,
 } from '../../../utils/helpers';
@@ -169,16 +165,21 @@ export default function PlacePage() {
             </Text>
 
             <TouchableOpacity
-              // onPress={() => goTo('Review', {placeId})}
+              onPress={() => {
+                router.push({
+                  pathname: '/(main)/place/reviews/[id]',
+                  params: {id: place?.id!},
+                });
+              }}
               className="flex-row items-center justify-between pb-2 border-b border-light-200">
               <View className="flex-row items-center py-1.5">
                 <Star fill="orange" stroke="orange" />
                 <View className="ml-2">
                   <Text className="text-black text-[16px]">
-                    {formatNumber(place?.total_reviews || 0)}{' '}
+                    {place?.rating || 1}/5
                   </Text>
                   <Text className="text-light text-[14px] ">
-                    {place?.total_reviews}{' '}
+                    {formatNumber(place?.total_reviews ?? 0)}{' '}
                     {pluralize('review', place?.total_reviews!)}
                   </Text>
                 </View>
