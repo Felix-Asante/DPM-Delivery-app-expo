@@ -45,6 +45,5 @@ export const getPlaceRating = (
   page: number,
 ): Promise<Ratings> => {
   const endpoint = apiConfig.places.ratings(placeId, {page});
-  console.log(endpoint);
   return makeApiRequest({endpoint, method: 'get'});
 };

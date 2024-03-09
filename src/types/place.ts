@@ -1,6 +1,21 @@
 import {Category, ProductCategory} from './category';
 import {Special} from './specials';
 
+export interface OpeningHours {
+  [K: string]: {
+    closed?: boolean;
+    openAllDay?: boolean;
+    ranges?: {from: string; to: string}[];
+  };
+  // @ts-ignore
+  id: string;
+  // @ts-ignore
+  createdAt: string;
+  // @ts-ignore
+  updatedAt: string;
+  // @ts-ignore
+  deletedAt: string | null;
+}
 export interface Place {
   name: string;
   id: string;
@@ -22,6 +37,7 @@ export interface Place {
   placeAdminFullName: string;
   placeAdminPhone: string;
   placeAdminPassword: string;
+  openingHours: OpeningHours;
 }
 
 export interface PlaceService {

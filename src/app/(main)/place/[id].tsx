@@ -160,9 +160,18 @@ export default function PlacePage() {
         </View>
         <View className="bg-white h-full rounded-t-xl">
           <View className="px-3 py-4">
-            <Text className="text-black text-lg font-semibold mb-2">
-              {place?.name}
-            </Text>
+            <Text className="text-black text-xl font-bold">{place?.name}</Text>
+            <TouchableOpacity
+              className="flex-row mb-3"
+              onPress={() =>
+                router.push({
+                  pathname: '/(main)/place/details',
+                  params: {place: JSON.stringify(place)},
+                })
+              }>
+              <Text className="text-light text-sm">{place?.address}</Text>
+              <Text className="text-dark font-bold text-sm">, More info</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity
               onPress={() => {
@@ -176,7 +185,7 @@ export default function PlacePage() {
                 <Star fill="orange" stroke="orange" />
                 <View className="ml-2">
                   <Text className="text-black text-[16px]">
-                    {place?.rating || 1}/5
+                    {place?.rating || 5}/5
                   </Text>
                   <Text className="text-light text-[14px] ">
                     {formatNumber(place?.total_reviews ?? 0)}{' '}
