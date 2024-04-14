@@ -2,13 +2,13 @@ import {useQuery} from '@tanstack/react-query';
 import React, {useEffect, useState} from 'react';
 import {
   RefreshControl,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
   View,
   Dimensions,
 } from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import ContentWithSliderSection from '../../../components/ContentWithSliderSection';
 import IsWithinDeliveryLocation from '../../../components/guards/IsWithinDeliveryLocation';
@@ -58,9 +58,8 @@ export default function FeedsScreen() {
 
   return (
     <SafeAreaView className="bg-white">
-      <StatusBar barStyle="dark-content" />
       <ScrollView
-        className="py-8 h-full bg-white"
+        className="py-2 h-full bg-white"
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }

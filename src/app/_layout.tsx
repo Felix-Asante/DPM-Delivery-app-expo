@@ -6,6 +6,8 @@ import {useEffect, useState} from 'react';
 
 import 'react-native-gesture-handler';
 import 'react-native-reanimated';
+import {SafeAreaView} from 'react-native-safe-area-context';
+
 import Providers from '../components/Providers';
 import ErrorMessage from '../components/shared/errors/ErrorMessage';
 import {LOCATION_KEY} from '../constants';
@@ -97,6 +99,7 @@ export default function RootLayout() {
 function RootLayoutNav() {
   return (
     <Providers>
+      {/* <SafeAreaView className="h-full bg-white"> */}
       <Stack screenOptions={{headerShown: false}}>
         <Stack.Screen name="(main)/Home" options={{headerShown: false}} />
         <Stack.Screen name="(onboarding)" options={{headerShown: false}} />
@@ -108,6 +111,7 @@ function RootLayoutNav() {
           }}
         />
       </Stack>
+      {/* </SafeAreaView> */}
     </Providers>
   );
 }

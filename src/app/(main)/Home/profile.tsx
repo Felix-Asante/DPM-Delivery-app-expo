@@ -8,8 +8,9 @@ import {
   User2,
 } from 'lucide-react-native';
 import React, {Fragment, useMemo} from 'react';
-import {SafeAreaView, StatusBar, Text, View, Share} from 'react-native';
+import {Text, View, Share} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
 import {useAuthStore} from '../../../store/useAuth';
@@ -58,8 +59,7 @@ export default function Profile() {
   }, [user]);
   return (
     <SafeAreaView className="h-full bg-white">
-      <StatusBar barStyle="dark-content" />
-      <View className="px-5 pt-8">
+      <View className="px-5 pt-2">
         <View className="flex flex-row items-center justify-between mb-4">
           <Text className="font-bold text-lg text-dark ">Profile</Text>
         </View>

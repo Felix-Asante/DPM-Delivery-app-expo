@@ -2,14 +2,8 @@ import {useMutation} from '@tanstack/react-query';
 import {Link, useLocalSearchParams, useRouter} from 'expo-router';
 import {PhoneIcon} from 'lucide-react-native';
 import React from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Image,
-  Platform,
-  KeyboardAvoidingView,
-} from 'react-native';
+import {View, Text, Image, Platform, KeyboardAvoidingView} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import GoBack from '../../../components/GoBack';
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
@@ -65,7 +59,7 @@ export default function LoginScreen() {
         {canGoBack === 'true' && <GoBack label="Back" />}
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-          <View className="h-[95%] justify-center items-center w-[88%] mx-auto">
+          <View className="h-[90%] justify-center items-center w-[88%] mx-auto">
             <Image
               source={require('../../../../assets/images/app-logo.jpeg')}
               className="w-48 h-32"

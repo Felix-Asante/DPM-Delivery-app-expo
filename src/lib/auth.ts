@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 import {makeApiRequest} from './apiHandler';
 import {User} from '../types/auth';
 import {apiConfig} from '../utils/apiConfig';
@@ -76,4 +78,19 @@ export async function updateProfileDetails(
 export async function changePassword(data: UpdatePasswordDto) {
   const endpoint = apiConfig.auth.change_password();
   return makeApiRequest({endpoint, method: 'put', data});
+}
+
+export async function verifyPaymentAccount(account: string, bankCode: string) {
+  const endpoint = apiConfig.paystack.verifyAccount({
+    account_number: account,
+    bank_code: bankCode,
+  });
+
+  const response = await axios.get(endpoint, {
+    headers: {
+      Authorization: `Bearer ${process.env.EXPO_PUBLIC_PAYSTACK_SECRET_KEY}`,
+    },
+  });
+
+  return response.data;
 }

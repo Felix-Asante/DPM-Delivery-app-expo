@@ -6,8 +6,9 @@ import {twMerge} from 'tailwind-merge';
 import {Query} from '../../types';
 import {toastErrorMessage} from '../toast';
 
-export function mergeClassNames(...classes: ClassValue[]) {
+export function mergeClassNames(...classes: any) {
   return twMerge(clsx(classes));
+  // return classes.filter(Boolean).join(' ');
 }
 
 export async function isSecureStoreAvailable() {
@@ -101,4 +102,14 @@ export function formatNumber(value: number) {
 }
 export function pluralize(value: string, total: number, pluralForm = '') {
   return total > 1 ? (pluralForm ? pluralForm : `${value}s`) : value;
+}
+
+export function generateRandomString(length: number): string {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let result = '';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }

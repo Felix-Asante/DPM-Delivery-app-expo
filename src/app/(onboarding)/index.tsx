@@ -32,13 +32,17 @@ export default function Onboarding() {
   const router = useRouter();
 
   const skipOnboarding = async () => {
+    console.log('skip');
     await saveToSecureStore(SKIP_ONBOARDING_KEY, 'true');
     router.replace('/(main)/location');
   };
 
   return (
     <View className="h-full bg-primary">
-      <View className="bg-white px-2 pt-14 h-[80%] rounded-b-3xl relative">
+      <View className="bg-white px-2 pt-2 h-[80%] rounded-b-3xl relative">
+        <Pressable onPress={skipOnboarding} className="my-2 pr-3 items-end">
+          <Text className="text-primary font-semibold">Skip</Text>
+        </Pressable>
         <Swiper
           showsButtons={false}
           dotColor={Colors.primary[100]}
@@ -56,11 +60,6 @@ export default function Onboarding() {
             </View>
           ))}
         </Swiper>
-        <Pressable
-          onPress={skipOnboarding}
-          className="absolute bottom-[8%] z-10 my-2 left-[47%]">
-          <Text className="text-primary font-semibold">{'Skip ->'}</Text>
-        </Pressable>
       </View>
       <View className="mt-10 px-4 h-full">
         <TouchableOpacity

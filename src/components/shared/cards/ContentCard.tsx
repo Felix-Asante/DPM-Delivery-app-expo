@@ -52,7 +52,13 @@ export default function ContentCard({
   const goToPlaceScreen = () => {
     router.push({
       pathname: '/(main)/place/[id]',
-      params: {id: place?.id, image: place?.mainImage},
+      params: {
+        id: place?.id,
+        image: place?.mainImage,
+        address: place.address,
+        name: place.name,
+        rating: place.rating,
+      },
     });
   };
 
@@ -95,12 +101,11 @@ export default function ContentCard({
         )}
       </Pressable>
       <TouchableOpacity className="flex flex-row items-center justify-between my-1">
-        <TouchableOpacity onPress={goToPlaceScreen}>
-          <Text className="font-medium text-base md:text-lg  text-dark  line-clamp-1 capitalize">
-            {isOffer && offer
-              ? offer?.title?.substring(0, TOTAL_CHARACTERS)
-              : place?.name.substring(0, TOTAL_CHARACTERS)}
-            {place?.name.length > TOTAL_CHARACTERS ? '...' : ''}
+        <TouchableOpacity onPress={goToPlaceScreen} className="w-[87%]">
+          <Text
+            numberOfLines={1}
+            className="font-medium text-sm text-dark capitalize">
+            {isOffer && offer ? offer?.title : place?.name}
           </Text>
         </TouchableOpacity>
         {place?.rating > 0 ? (

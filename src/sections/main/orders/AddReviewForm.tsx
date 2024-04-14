@@ -61,7 +61,6 @@ export default function AddReviewForm({bookingId, onClose}: Props) {
             onPress={form.handleSubmit(leaveRating)}
             label="Leave rating"
             loading={ratingMutation.isPending}
-            className="w-1/4"
           />
           <Pressable onPress={onClose} className="items-center mt-2">
             <Text className="font-semibold text-center text-light">Cancel</Text>

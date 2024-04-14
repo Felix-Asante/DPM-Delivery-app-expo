@@ -7,20 +7,23 @@ import {mergeClassNames} from '../../../utils/helpers';
 interface Button {
   loading?: boolean;
   disabled?: boolean;
-  className?: string;
+  classNames?: string;
+  numberOfLines?: number;
   onPress?: () => void;
   labelClassName?: string;
   label: string;
 }
 export default function CustomButton(props: Button) {
   const {
+    label,
+    labelClassName,
+    numberOfLines,
+    classNames,
+    onPress,
     disabled = false,
     loading = false,
-    className,
-    labelClassName,
-    label,
-    onPress,
   } = props;
+
   return (
     <TouchableOpacity
       onPress={!disabled && onPress && !loading ? onPress : undefined}
@@ -28,10 +31,11 @@ export default function CustomButton(props: Button) {
         'bg-primary p-3 rounded-md w-full',
         disabled && 'bg-light',
         loading && 'py-3.5',
-        className,
+        classNames,
       )}>
       {!loading ? (
         <Text
+          numberOfLines={numberOfLines}
           className={mergeClassNames(
             'text-base text-white text-center',
             labelClassName,

@@ -1,7 +1,7 @@
 import {Tabs, useRouter} from 'expo-router';
 import {FileText, Home, Search, User2} from 'lucide-react-native';
 import React, {Fragment} from 'react';
-import {Dimensions, Pressable, View} from 'react-native';
+import {Dimensions, Pressable, StatusBar, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import CustomButton from '../../../components/shared/Buttons/CustomButton';
@@ -18,6 +18,7 @@ export default function AppHomeLayout() {
 
   return (
     <View className="relative h-full">
+      <StatusBar barStyle="dark-content" />
       <Tabs>
         <Tabs.Screen
           name="home"
@@ -82,10 +83,10 @@ export default function AppHomeLayout() {
       </Tabs>
       {cart !== null ? (
         <Pressable
-          className="w-full bg-white p-4 border-b border-light-200 absolute"
+          className="w-full p-4 border-b border-light-200 absolute"
           style={{bottom: insets.bottom + 48}}>
           <CustomButton
-            label={`Checkout ${shorten(cart?.name, 25)}`}
+            label={`Checkout ${shorten(cart?.place?.name, 25)}`}
             onPress={() => router.push('/(main)/cart')}
           />
         </Pressable>

@@ -15,8 +15,10 @@
         "gradleCommand": ":app:assembleRelease"
       },
       "env": {
-        "EXPO_PUBLIC_API_URL": "https://www.staging.api.dpmbrand.com/api/v1",
-        "EXPO_PUBLIC_GOOGLE_API_KEY": "AIzaSyBx2kWu7zzYADnCckcSehzkTp5Je5crUbw"
+        "EXPO_PUBLIC_API_URL": "https://staging.api.dpmbrand.com/api/v1",
+        "EXPO_PUBLIC_GOOGLE_API_KEY": "AIzaSyBx2kWu7zzYADnCckcSehzkTp5Je5crUbw",
+        "EXPO_PUBLIC_PAYSTACK_SECRET_KEY": "sk_test_7842ef4634e93ad81c06409a64cc2c7e30e61231",
+        "EXPO_PUBLIC_PAYSTACK_PUBLIC_KEY": "pk_test_007adebd94b6d87938abeec6db7a3782836de334"
       }
     },
     "preview2": {

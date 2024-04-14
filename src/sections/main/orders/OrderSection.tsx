@@ -1,7 +1,8 @@
 import {useQuery} from '@tanstack/react-query';
 import {Skeleton} from 'moti/skeleton';
 import React, {useState} from 'react';
-import {FlatList, Text, View} from 'react-native';
+import {FlatList, ScrollView, Text, View} from 'react-native';
+import {Modal} from 'react-native-magnus';
 
 import OrderSummary from './OrderSummary';
 import BottomSheet from '../../../components/BottomSheet';
@@ -48,15 +49,17 @@ export default function OrderSection({status}: Props) {
           />
         )}
       />
-      <BottomSheet
-        snapPoints={['25%', '100%']}
-        open={selectedOrder !== null}
-        onClose={() => setSelectedOrder(null)}>
-        <OrderSummary
-          booking={selectedOrder!}
-          onClose={() => setSelectedOrder(null)}
-        />
-      </BottomSheet>
+      <Modal
+        h="85%"
+        isVisible={selectedOrder !== null}
+        onDismiss={() => setSelectedOrder(null)}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <OrderSummary
+            booking={selectedOrder!}
+            onClose={() => setSelectedOrder(null)}
+          />
+        </ScrollView>
+      </Modal>
     </View>
   );
 }

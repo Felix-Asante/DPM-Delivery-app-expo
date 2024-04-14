@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, Text, SafeAreaView} from 'react-native';
+import {View, Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {
   Tabs,
@@ -27,9 +28,9 @@ export default function Orders() {
   }
 
   return (
-    <View className="bg-white h-full">
+    <View className="pb-8 h-full bg-white">
       <SafeAreaView>
-        <View className="pt-5 px-4">
+        <View className="px-4">
           <Text className="font-bold text-xl text-black mb-5">Orders</Text>
           <Tabs defaultValue="pending">
             <TabsList>

@@ -43,4 +43,11 @@ export const apiConfig = {
     place_offers: () => `/offers/place-offers`,
     product_offers: () => `/offers/product-offers`,
   },
+  paystack: {
+    verifyAccount: (query: Query) =>
+      `https://api.paystack.co/bank/resolve${toQuery(query)}`,
+  },
+  transactions: {
+    acceptPayment: () => `/payment`,
+  },
 };

@@ -1,6 +1,7 @@
-import {Stack, useFocusEffect, useRouter} from 'expo-router';
+import {Slot, Stack, useFocusEffect, useRouter} from 'expo-router';
 import {useState} from 'react';
 import {StatusBar, View} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 import SplashScreen from '../../components/SplashScreen';
 import {SKIP_ONBOARDING_KEY} from '../../constants';
@@ -29,16 +30,19 @@ export default function HomeLayout() {
 
   if (!showOnboarding) return <SplashScreen />;
   return (
-    <View className="h-full">
-      <StatusBar animated barStyle="dark-content" />
+    <SafeAreaView className="bg-white">
       <View className="h-full">
-        <Stack
-          screenOptions={{
-            headerTitle: '',
-            headerTransparent: true,
-          }}
-        />
+        <StatusBar animated barStyle="dark-content" />
+        <View className="h-full">
+          {/* <Stack
+            screenOptions={{
+              headerTitle: '',
+              headerTransparent: true,
+            }}
+          /> */}
+          <Slot />
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }

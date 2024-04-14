@@ -45,7 +45,13 @@ import {calculateDistance} from '../../../utils/helpers/location';
 import {toastErrorMessage} from '../../../utils/toast';
 
 export default function PlacePage() {
-  const {id, image} = useLocalSearchParams<{id: string; image: string}>();
+  const {id, image, address, name, rating} = useLocalSearchParams<{
+    id: string;
+    image: string;
+    address: string;
+    name: string;
+    rating: string;
+  }>();
   const {
     data: place,
     isLoading,
@@ -61,7 +67,8 @@ export default function PlacePage() {
     queryFn: () => getPlaceService(id),
   });
 
-  const cart = useCart(state => state.cart);
+  const ratings = rating ?? place?.rating;
+
   const {userLocation} = useGlobalStore();
 
   const distance = useMemo(() => {
@@ -160,7 +167,9 @@ export default function PlacePage() {
         </View>
         <View className="bg-white h-full rounded-t-xl">
           <View className="px-3 py-4">
-            <Text className="text-black text-xl font-bold">{place?.name}</Text>
+            <Text className="text-black text-xl font-bold">
+              {name ?? place?.name}
+            </Text>
             <TouchableOpacity
               className="flex-row mb-3"
               onPress={() =>
@@ -169,7 +178,9 @@ export default function PlacePage() {
                   params: {place: JSON.stringify(place)},
                 })
               }>
-              <Text className="text-light text-sm">{place?.address}</Text>
+              <Text className="text-light text-sm">
+                {address ?? place?.address}
+              </Text>
               <Text className="text-dark font-bold text-sm">, More info</Text>
             </TouchableOpacity>
 
@@ -185,7 +196,7 @@ export default function PlacePage() {
                 <Star fill="orange" stroke="orange" />
                 <View className="ml-2">
                   <Text className="text-black text-[16px]">
-                    {place?.rating || 5}/5
+                    {+ratings > 0 ? rating : 5}/5
                   </Text>
                   <Text className="text-light text-[14px] ">
                     {formatNumber(place?.total_reviews ?? 0)}{' '}
